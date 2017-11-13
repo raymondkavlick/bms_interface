@@ -6,7 +6,8 @@
 #
 # WARNING! All changes made in this file will be lost!
 import time
-from PyQt4 import QtCore, QtGui
+from PyQt4 import QtCore, QtGui,QThread
+
 
 from handler import main
 
@@ -61,8 +62,6 @@ if __name__ == "__main__":
     ui = Ui_Dialog()
     ui.setupUi(Dialog)
     Dialog.show()
-
-    main()
-
     sys.exit(app.exec_())
+    main()
 
