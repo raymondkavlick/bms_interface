@@ -5,63 +5,73 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
+import threading
 import time
-from PyQt4 import QtCore, QtGui,QThread
+from PyQt4 import QtCore, QtGui
+
+import sys
+
+class Bms_Dyno(QtCore.QObject):
+
+    signalStatus = QtCore.pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super(self.__class__, self).__init__(parent)
+
+        # Create a gui object.
+        self.gui = bms_window()
+
+        # Setup the worker object and the worker_thread.
+        self.worker = worker()
+        self.worker_thread = QtCore.QThread()
+        self.worker.moveToThread(self.worker_thread)
+        self.worker_thread.start()
+
+        # Make any cross object connections.
+        self._connectSignals()
+
+        self.gui.show()
+
+    def _connectSignals(self):
+        self.gui.button_start.clicked.connect(self.worker.startWork)
+        self.signalStatus.connect(self.gui.updateStatus)
+        self.worker.signalStatus.connect(self.gui.updateStatus)
 
 
-from handler import main
+class bms_window(QtGui.QWidget):
 
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
+    def __init__(self):
+        QtGui.QWidget.__init__(self)
+        self.setWindowTitle("BMS Interface")
+        self.button_start = QtGui.QPushButton('Connect', self)
+        self.label_status = QtGui.QLabel('', self)
 
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        layout = QtGui.QVBoxLayout(self)
+        layout.addWidget(self.button_start)
+        layout.addWidget(self.label_status)
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName(_fromUtf8("Dialog"))
-        Dialog.resize(400, 300)
-        self.buttonBox = QtGui.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(50, 260, 341, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
-        self.textEdit = QtGui.QTextEdit(Dialog)
-        self.textEdit.setGeometry(QtCore.QRect(220, 30, 131, 51))
-        self.textEdit.setObjectName(_fromUtf8("textEdit"))
-        self.pushButton = QtGui.QPushButton(Dialog)
-        self.pushButton.setGeometry(QtCore.QRect(30, 200, 131, 41))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.label = QtGui.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(90, 30, 121, 41))
-        self.label.setObjectName(_fromUtf8("label"))
+        self.setFixedSize(400, 200)
 
-        self.retranslateUi(Dialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), Dialog.reject)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+    @QtCore.pyqtSlot(str)
+    def updateStatus(self, status):
+        self.label_status.setText(status)
 
-    def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))
-        self.pushButton.setText(_translate("Dialog", "Connect", None))
-        self.label.setText(_translate("Dialog", "Pack Voltage", None))
+class worker(QtCore.QObject):
+    signalStatus = QtCore.pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super(self.__class__, self).__init__(parent)
+
+    def startWork(self):
+        for ii in range(100,107):
+            number = ii
+            time.sleep(1)
+            self.signalStatus.emit( u'{0}'.format(ii))
+
+        self.signalStatus.emit('Idle.')
 
 
 if __name__ == "__main__":
-    import sys
     app = QtGui.QApplication(sys.argv)
-    Dialog = QtGui.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    bms_dyno = Bms_Dyno(app)
     sys.exit(app.exec_())
-    main()
-
