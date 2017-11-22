@@ -53,7 +53,6 @@ class bms_window(QtGui.QWidget):
         layout.addWidget(self.label_status)
 
         self.setFixedSize(400, 200)
-        self.m_objPCANBasic = PCANBasic()
 
     @QtCore.pyqtSlot(str)
     def updateStatus(self, status):
@@ -65,31 +64,59 @@ class worker(QtCore.QObject):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
+        self.m_objPCANBasic = PCANBasic()
+        self.m_PcanHandle = 0
+
     def startWork(self, result=PCAN_ERROR_CAUTION):
-
-
+            self.m_PcanHandle = PCAN_USBBUS1
             baudrate = PCAN_BAUD_500K
-            HwType = TPCANType(0),
-            IOPort = c_uint(0),
-            Interrupt = c_ushort(0)
+            hwtype = PCAN_USBBUS1
+            ioport = 0
+            interrupt = 0
 
             # Connects a selected PCAN-Basic channel
-            self.m_objPCANBasic.Initialize(self.m_PcanHandle, baudrate, hwtype, ioport, interrupt)
+            result =  self.m_objPCANBasic.Initialize(self.m_PcanHandle,baudrate,hwtype,ioport,interrupt)
 
             if result != PCAN_ERROR_OK:
+                print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
-                    self.signalStatus.emit('ERRRRRR.')
+                    self.signalStatus.emit('PeakCAN Dongle Not Found.')
                 else:
                     self.IncludeTextMessage('******************************************************')
                     self.IncludeTextMessage('The bitrate being used is different than the given one')
                     self.IncludeTextMessage('******************************************************')
                     result = PCAN_ERROR_OK
-                    self.signalStatus.emit("GOOD")
+                    self.signalStatus.emit("PeakCAN Connected!.")
             else:
                 # Prepares the PCAN-Basic's PCAN-Trace file
+                print "PCAN - Initialized."
+                self.signalStatus.emit('PeakCAN Dongle Found.')
+
+            CANMsg = TPCANMsg()
+            for i in range(CANMsg.LEN):
+                CANMsg.DATA[i] = 3
+            CANMsg.ID = 0x300
+            CANMsg.LEN = 8
+            CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
+            self.signalStatus.emit('Sending CAN Messages...')
+            for x in range(0,100):
                 #
-                self.ConfigureTraceFile()
-                self.signalStatus.emit( u'{0}'.format(1))
+                time.sleep(1)
+
+                print x
+                # The message is sent to the configured hardware
+                #
+                stsResult = self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
+                print "sent"
+                # The message was successfully sent
+                #
+                if stsResult == PCAN_ERROR_OK:
+                    #self.IncludeTextMessage("Message was successfully SENT")
+                    print "error1"
+                else:
+                    # An error occurred.  We show the error.
+                    #
+                    print "error2"
 
 
 if __name__ == "__main__":
