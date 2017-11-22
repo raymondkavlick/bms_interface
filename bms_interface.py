@@ -8,9 +8,9 @@
 import threading
 import time
 from PyQt4 import QtCore, QtGui
+
+import bms_ui_form
 from PCANBasic import *        ## PCAN-Basic library import
-
-
 import sys
 
 class Bms_Dyno(QtCore.QObject):
@@ -21,7 +21,9 @@ class Bms_Dyno(QtCore.QObject):
         super(self.__class__, self).__init__(parent)
 
         # Create a gui object.
-        self.gui = bms_window()
+        self.gui = bms_ui_form.Ui_Dialog()
+        Dialog mydiag;
+        self.gui.setupUi(mydiag)
 
         # Setup the worker object and the worker_thread.
         self.worker = worker()
@@ -30,7 +32,7 @@ class Bms_Dyno(QtCore.QObject):
         self.worker_thread.start()
 
         # Make any cross object connections.
-        self._connectSignals()
+        #self._connectSignals()
 
         self.gui.show()
 
