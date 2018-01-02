@@ -21,9 +21,9 @@ class Bms_Dyno(QtCore.QObject):
         super(self.__class__, self).__init__(parent)
 
         # Create a gui object.
+        self.Dialog = QtGui.QDialog()
         self.gui = bms_ui_form.Ui_Dialog()
-        Dialog mydiag;
-        self.gui.setupUi(mydiag)
+        self.gui.setupUi(self.Dialog)
 
         # Setup the worker object and the worker_thread.
         self.worker = worker()
@@ -32,15 +32,15 @@ class Bms_Dyno(QtCore.QObject):
         self.worker_thread.start()
 
         # Make any cross object connections.
-        #self._connectSignals()
+        self._connectSignals()
 
-        self.gui.show()
+        self.Dialog.show()
 
     def _connectSignals(self):
-        self.gui.button_start.clicked.connect(self.worker.startWork)
-        self.signalStatus.connect(self.gui.updateStatus)
-        self.worker.signalStatus.connect(self.gui.updateStatus)
-
+        self.gui.pushButton.clicked.connect(self.worker.startWork)
+        #self.gui.button_start.clicked.connect(self.worker.startWork)
+        #self.signalStatus.connect(self.gui.updateStatus)
+        #self.worker.signalStatus.connect(self.gui.updateStatus)
 
 class bms_window(QtGui.QWidget):
 
@@ -70,14 +70,15 @@ class worker(QtCore.QObject):
         self.m_PcanHandle = 0
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
+            print "startWork!"
             self.m_PcanHandle = PCAN_USBBUS1
-            baudrate = PCAN_BAUD_500K
-            hwtype = PCAN_USBBUS1
-            ioport = 0
-            interrupt = 0
+            self.baudrate = PCAN_BAUD_500K
+            self.hwtype = PCAN_USBBUS1
+            self.ioport = 0
+            self.interrupt = 0
 
             # Connects a selected PCAN-Basic channel
-            result =  self.m_objPCANBasic.Initialize(self.m_PcanHandle,baudrate,hwtype,ioport,interrupt)
+            result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
 
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
