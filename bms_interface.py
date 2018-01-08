@@ -52,6 +52,7 @@ class worker(QtCore.QObject):
         self.m_PcanHandle = 0
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
+            self.signalStatus.emit("wtf")
             print "startWorker Thread!"
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_500K
@@ -92,7 +93,6 @@ class worker(QtCore.QObject):
                 stsResult = self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
                 # The message was successfully sent
                 #
-                Bms_Dyno.gui.updateStatus(x)
                 if stsResult == PCAN_ERROR_OK:
                     #self.IncludeTextMessage("Message was successfully SENT")
                     print "Sending message " + x + "..."
