@@ -39,26 +39,8 @@ class Bms_Dyno(QtCore.QObject):
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
         #self.gui.button_start.clicked.connect(self.worker.startWork)
-        #self.signalStatus.connect(self.gui.updateStatus)
-        #self.worker.signalStatus.connect(self.gui.updateStatus)
-
-class bms_window(QtGui.QWidget):
-
-    def __init__(self):
-        QtGui.QWidget.__init__(self)
-        self.setWindowTitle("BMS Interface")
-        self.button_start = QtGui.QPushButton('Connect', self)
-        self.label_status = QtGui.QLabel('', self)
-
-        layout = QtGui.QVBoxLayout(self)
-        layout.addWidget(self.button_start)
-        layout.addWidget(self.label_status)
-
-        self.setFixedSize(400, 200)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatus(self, status):
-        self.label_status.setText(status)
+        self.signalStatus.connect(self.gui.updateStatus)
+        #self.worker.signalStatus.connect(self.gui.m_Status)
 
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
@@ -110,6 +92,7 @@ class worker(QtCore.QObject):
                 stsResult = self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
                 # The message was successfully sent
                 #
+                Bms_Dyno.gui.updateStatus(x)
                 if stsResult == PCAN_ERROR_OK:
                     #self.IncludeTextMessage("Message was successfully SENT")
                     print "Sending message " + x + "..."
