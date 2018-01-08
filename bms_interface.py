@@ -152,7 +152,7 @@ class worker(QtCore.QObject):
                         print(format(msg.DATA[6], '02X')),
                         print(format(msg.DATA[7], '02X'))
                         #if idhex == 0x1AD:
-                        if idhex == 0x726:
+                        if hex(idhex) == 0x726:
                             print "found 726"
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
