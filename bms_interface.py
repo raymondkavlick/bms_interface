@@ -171,3 +171,30 @@ if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     bms_dyno = Bms_Dyno(app)
     sys.exit(app.exec_())
+
+    '''
+    @QtCore.pyqtSlot(str)
+    def updateStatus(self, status):
+        self.m_Status.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPackVoltageEdit(self, status):
+        self.textEdit.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPVoltageEdit(self, status):
+        self.textEdit_2.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusBVoltageEdit(self, status):
+        self.textEdit_3.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPackCurrentEdit(self, status):
+        self.textEdit_4.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusSoCEdit(self, status):
+        self.textEdit_5.setText(status)
+    
+    '''
