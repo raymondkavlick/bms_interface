@@ -40,7 +40,7 @@ class Bms_Dyno(QtCore.QObject):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
         #self.gui.button_start.clicked.connect(self.worker.startWork)
         self.signalStatus.connect(self.gui.updateStatus)
-        #self.worker.signalStatus.connect(self.gui.m_Status)
+        self.worker.signalStatus.connect(self.gui.updateStatus)
 
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
@@ -87,6 +87,7 @@ class worker(QtCore.QObject):
             self.signalStatus.emit('Sending CAN Messages...')
             for x in range(0,100):
                 #
+                stsResult = 1
                 time.sleep(1)
                 # The message is sent to the configured hardware
                 #
@@ -95,7 +96,9 @@ class worker(QtCore.QObject):
                 #
                 if stsResult == PCAN_ERROR_OK:
                     #self.IncludeTextMessage("Message was successfully SENT")
-                    print "Sending message " + x + "..."
+                    print "Sending message..."
+                    print x
+                    self.signalStatus.emit(x)
                 else:
                     # An error occurred.  We show the error.
                     #

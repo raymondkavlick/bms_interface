@@ -103,6 +103,7 @@ class Ui_Dialog(object):
 
     @QtCore.pyqtSlot(str)
     def updateStatus(self, status):
+        print "in updateStatus"
         self.m_Status.setText(status)
 
     def retranslateUi(self, Dialog):
