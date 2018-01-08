@@ -16,6 +16,7 @@ import sys
 class Bms_Dyno(QtCore.QObject):
 
     signalStatus = QtCore.pyqtSignal(str)
+    signalPackVoltageEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -38,12 +39,14 @@ class Bms_Dyno(QtCore.QObject):
 
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
-        #self.gui.button_start.clicked.connect(self.worker.startWork)
         self.signalStatus.connect(self.gui.updateStatus)
         self.worker.signalStatus.connect(self.gui.updateStatus)
+        self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
+        self.worker.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
 
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
+    signalPackVoltageEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -91,8 +94,7 @@ class worker(QtCore.QObject):
                 if stsResult == PCAN_ERROR_OK:
                     #self.IncludeTextMessage("Message was successfully SENT")
                     print "Sending message..."
-                    print x
-                    self.signalStatus.emit(str(x))
+                    self.signalPackVoltageEdit.emit(str(x))
                 else:
                     # An error occurred.  We show the error.
                     #

@@ -106,6 +106,11 @@ class Ui_Dialog(object):
         print "in updateStatus"
         self.m_Status.setText(status)
 
+    @QtCore.pyqtSlot(str)
+    def updateStatusPackVoltageEdit(self, status):
+        print "in updateStatus"
+        self.textEdit.setText(status)
+
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))
         self.pushButton.setText(_translate("Dialog", "Connect", None))
