@@ -136,7 +136,7 @@ class worker(QtCore.QObject):
             else:
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN - Initialized."
-                self.signalStatus.emit("Connected. Receiving...")
+                self.signalStatus.emit("Connected. Waiting for BMS...")
                 while(1):
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
@@ -151,21 +151,20 @@ class worker(QtCore.QObject):
                         print(format(msg.DATA[5], '02X')),
                         print(format(msg.DATA[6], '02X')),
                         print(format(msg.DATA[7], '02X'))
-                        #if idhex == 0x1AD:
-                        if msg.ID == 0x726:
-                            print "found 726"
+                        if msg.ID == 0x1AD:
+                            self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
-                            self.signalPackCurrentEdit.emit(str(PackCurrent))
-                            self.signalSoCEdit.emit(str(SoC))
-                        elif idhex == 0x2AD:
+                            self.signalPackCurrentEdit.emit(str(float(PackCurrent) / 100) + " Amps")
+                            self.signalSoCEdit.emit(str(SoC) + "%")
+                        elif msg.ID == 0x2AD:
                             BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
-                            self.signalBVoltageEdit.emit(str(BVoltage))
-                        elif idhex == 0x3AD:
+                            self.signalBVoltageEdit.emit(str(float(BVoltage) / 100) + " Volts")
+                        elif msg.ID == 0x3AD:
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
-                            self.signalPVoltageEdit.emit(str(PVoltage))
+                            self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
 
 
 if __name__ == "__main__":
