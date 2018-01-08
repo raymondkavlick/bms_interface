@@ -151,7 +151,20 @@ class worker(QtCore.QObject):
                         print(format(msg.DATA[5], '02X')),
                         print(format(msg.DATA[6], '02X')),
                         print(format(msg.DATA[7], '02X'))
-                        self.signalPackVoltageEdit.emit(str(msg.DATA[0] + msg.DATA[1]))
+                        #if idhex == 0x1AD:
+                        if idhex == 0x726:
+                            PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
+                            PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
+                            SoC = msg.DATA[5]
+                            self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
+                            self.signalPackCurrentEdit.emit(str(PackCurrent))
+                            self.signalSoCEdit.emit(str(SoC))
+                        elif idhex == 0x2AD:
+                            BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
+                            self.signalBVoltageEdit.emit(str(BVoltage))
+                        elif idhex == 0x3AD:
+                            PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
+                            self.signalPVoltageEdit.emit(str(PVoltage))
 
 
 if __name__ == "__main__":
