@@ -141,19 +141,18 @@ class worker(QtCore.QObject):
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
-                        # print('msg     = ',msg   )
-                        idhex = format(msg.ID, 'x')
+                        idhex = format(msg.ID, 'X')
                         print'ID = ', idhex,
-                        # print('MSGTYPE = ',msg.MSGTYPE)
-                        # print('DLC     = ',msg.DLC)
-                        print(format(msg.DATA[0], '02x')),
-                        print(format(msg.DATA[1], '02x')),
-                        print(format(msg.DATA[2], '02x')),
-                        print(format(msg.DATA[3], '02x')),
-                        print(format(msg.DATA[4], '02x')),
-                        print(format(msg.DATA[5], '02x')),
-                        print(format(msg.DATA[6], '02x')),
-                        print(format(msg.DATA[7], '02x'))
+                        print(format(msg.DATA[0], '02X')),
+                        print(format(msg.DATA[1], '02X')),
+                        print(format(msg.DATA[2], '02X')),
+                        print(format(msg.DATA[3], '02X')),
+                        print(format(msg.DATA[4], '02X')),
+                        print(format(msg.DATA[5], '02X')),
+                        print(format(msg.DATA[6], '02X')),
+                        print(format(msg.DATA[7], '02X'))
+                        self.signalPackVoltageEdit.emit(str(msg.DATA[0] + msg.DATA[1]))
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
