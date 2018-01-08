@@ -137,11 +137,7 @@ class worker(QtCore.QObject):
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Receiving...")
-                readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
-                readResult[0] = PCAN_ERROR_OK
-
-                while(readResult[0] & PCAN_ERROR_QRCVEMPTY) != PCAN_ERROR_QRCVEMPTY:
-                #while(1):
+                while(readResult[0] != PCAN_ERROR_QRCVEMPTY):
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
