@@ -61,6 +61,46 @@
     <bool>false</bool>
    </property>
   </widget>
+  <widget class="QTextEdit" name="textEdit_2">
+   <property name="geometry">
+    <rect>
+     <x>241</x>
+     <y>128</y>
+     <width>201</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textEdit_3">
+   <property name="geometry">
+    <rect>
+     <x>241</x>
+     <y>215</y>
+     <width>201</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textEdit_4">
+   <property name="geometry">
+    <rect>
+     <x>241</x>
+     <y>302</y>
+     <width>201</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="textEdit_5">
+   <property name="geometry">
+    <rect>
+     <x>241</x>
+     <y>389</y>
+     <width>201</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
@@ -108,32 +148,21 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QTextEdit" name="textEdit">
    <property name="geometry">
     <rect>
-     <x>240</x>
-     <y>40</y>
-     <width>111</width>
-     <height>431</height>
+     <x>241</x>
+     <y>41</y>
+     <width>201</width>
+     <height>81</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <widget class="QTextEdit" name="textEdit"/>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="textEdit_2"/>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="textEdit_3"/>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="textEdit_4"/>
-    </item>
-    <item>
-     <widget class="QTextEdit" name="textEdit_5"/>
-    </item>
-   </layout>
+   <property name="minimumSize">
+    <size>
+     <width>109</width>
+     <height>0</height>
+    </size>
+   </property>
   </widget>
   <zorder>buttonBox</zorder>
   <zorder>pushButton</zorder>

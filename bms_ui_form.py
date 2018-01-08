@@ -96,7 +96,7 @@ class Ui_Dialog(object):
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-
+    '''
     @QtCore.pyqtSlot(str)
     def updateStatus(self, status):
         self.m_Status.setText(status)
@@ -120,6 +120,7 @@ class Ui_Dialog(object):
     @QtCore.pyqtSlot(str)
     def updateStatusSoCEdit(self, status):
         self.textEdit_5.setText(status)
+        '''
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))

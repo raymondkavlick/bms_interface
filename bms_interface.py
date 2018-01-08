@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 import bms_ui_form
 from PCANBasic import *        ## PCAN-Basic library import
 import sys
+import ui_helper
 
 class Bms_Dyno(QtCore.QObject):
 
@@ -27,7 +28,7 @@ class Bms_Dyno(QtCore.QObject):
 
         # Create a gui object.
         self.Dialog = QtGui.QDialog()
-        self.gui = bms_ui_form.Ui_Dialog()
+        self.gui = ui_helper.Ui_Dialog_Derived()
         self.gui.setupUi(self.Dialog)
 
         # Setup the worker object and the worker_thread.
