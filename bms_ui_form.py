@@ -103,13 +103,27 @@ class Ui_Dialog(object):
 
     @QtCore.pyqtSlot(str)
     def updateStatus(self, status):
-        print "in updateStatus"
         self.m_Status.setText(status)
 
     @QtCore.pyqtSlot(str)
     def updateStatusPackVoltageEdit(self, status):
-        print "in updateStatus"
         self.textEdit.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPVoltageEdit(self, status):
+        self.textEdit_2.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusBVoltageEdit(self, status):
+        self.textEdit_3.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPackCurrentEdit(self, status):
+        self.textEdit_4.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusSoCEdit(self, status):
+        self.textEdit_5.setText(status)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))

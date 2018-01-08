@@ -17,6 +17,10 @@ class Bms_Dyno(QtCore.QObject):
 
     signalStatus = QtCore.pyqtSignal(str)
     signalPackVoltageEdit = QtCore.pyqtSignal(str)
+    signalPVoltageEdit = QtCore.pyqtSignal(str)
+    signalBVoltageEdit = QtCore.pyqtSignal(str)
+    signalPackCurrentEdit = QtCore.pyqtSignal(str)
+    signalSoCEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -43,17 +47,29 @@ class Bms_Dyno(QtCore.QObject):
         self.worker.signalStatus.connect(self.gui.updateStatus)
         self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
         self.worker.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
+        self.signalPVoltageEdit.connect(self.gui.updateStatusPVoltageEdit)
+        self.worker.signalPVoltageEdit.connect(self.gui.updateStatusPVoltageEdit)
+        self.signalBVoltageEdit.connect(self.gui.updateStatusBVoltageEdit)
+        self.worker.signalBVoltageEdit.connect(self.gui.updateStatusBVoltageEdit)
+        self.signalPackCurrentEdit.connect(self.gui.updateStatusPackCurrentEdit)
+        self.worker.signalPackCurrentEdit.connect(self.gui.updateStatusPackCurrentEdit)
+        self.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
+        self.worker.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
 
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
     signalPackVoltageEdit = QtCore.pyqtSignal(str)
+    signalPVoltageEdit = QtCore.pyqtSignal(str)
+    signalBVoltageEdit = QtCore.pyqtSignal(str)
+    signalPackCurrentEdit = QtCore.pyqtSignal(str)
+    signalSoCEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
         self.m_objPCANBasic = PCANBasic()
         self.m_PcanHandle = 0
-
+    ''' for sending
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread!"
             self.m_PcanHandle = PCAN_USBBUS1
@@ -92,14 +108,53 @@ class worker(QtCore.QObject):
                 time.sleep(1)
                 stsResult = self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
                 if stsResult == PCAN_ERROR_OK:
-                    #self.IncludeTextMessage("Message was successfully SENT")
                     print "Sending message..."
                     self.signalPackVoltageEdit.emit(str(x))
                 else:
                     # An error occurred.  We show the error.
                     #
                     print "error2"
+    '''
+    def startWork(self, result=PCAN_ERROR_CAUTION):
+            print "startWorker Thread Rx!"
+            self.m_PcanHandle = PCAN_USBBUS1
+            self.baudrate = PCAN_BAUD_500K
+            self.hwtype = PCAN_USBBUS1
+            self.ioport = 0
+            self.interrupt = 0
 
+            # Connects a selected PCAN-Basic channel
+            result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
+
+            if result != PCAN_ERROR_OK:
+                print "Error - PCAN not initializing."
+                if result != PCAN_ERROR_CAUTION:
+                    self.signalStatus.emit('PeakCAN Dongle Not Found.')
+                else:
+                    result = PCAN_ERROR_OK
+                    self.signalStatus.emit("PeakCAN Connected!.")
+            else:
+                # Prepares the PCAN-Basic's PCAN-Trace file
+                print "PCAN - Initialized."
+                self.signalStatus.emit("Connected. Receiving...")
+                readResult = PCAN_ERROR_OK
+                while(readResult[0] & PCAN_ERROR_QRCVEMPTY) != PCAN_ERROR_QRCVEMPTY:
+                    readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
+                    if readResult[0] == PCAN_ERROR_OK:
+                        msg = readResult[1]  # readResult[1] TPCANMsg()
+                        # print('msg     = ',msg   )
+                        idhex = format(msg.ID, 'x')
+                        print'ID = ', idhex,
+                        # print('MSGTYPE = ',msg.MSGTYPE)
+                        # print('DLC     = ',msg.DLC)
+                        print(format(msg.DATA[0], '02x')),
+                        print(format(msg.DATA[1], '02x')),
+                        print(format(msg.DATA[2], '02x')),
+                        print(format(msg.DATA[3], '02x')),
+                        print(format(msg.DATA[4], '02x')),
+                        print(format(msg.DATA[5], '02x')),
+                        print(format(msg.DATA[6], '02x')),
+                        print(format(msg.DATA[7], '02x'))
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
