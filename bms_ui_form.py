@@ -41,19 +41,19 @@ class Ui_Dialog(object):
         self.m_Status.setAcceptRichText(False)
         self.m_Status.setObjectName(_fromUtf8("m_Status"))
         self.textEdit_2 = QtGui.QTextEdit(Dialog)
-        self.textEdit_2.setGeometry(QtCore.QRect(241, 128, 201, 81))
+        self.textEdit_2.setGeometry(QtCore.QRect(241, 128, 201, 51))
         self.textEdit_2.setObjectName(_fromUtf8("textEdit_2"))
         self.textEdit_3 = QtGui.QTextEdit(Dialog)
-        self.textEdit_3.setGeometry(QtCore.QRect(241, 215, 201, 81))
+        self.textEdit_3.setGeometry(QtCore.QRect(241, 215, 201, 51))
         self.textEdit_3.setObjectName(_fromUtf8("textEdit_3"))
         self.textEdit_4 = QtGui.QTextEdit(Dialog)
-        self.textEdit_4.setGeometry(QtCore.QRect(241, 302, 201, 81))
+        self.textEdit_4.setGeometry(QtCore.QRect(241, 302, 201, 51))
         self.textEdit_4.setObjectName(_fromUtf8("textEdit_4"))
         self.textEdit_5 = QtGui.QTextEdit(Dialog)
-        self.textEdit_5.setGeometry(QtCore.QRect(241, 389, 201, 81))
+        self.textEdit_5.setGeometry(QtCore.QRect(241, 389, 201, 51))
         self.textEdit_5.setObjectName(_fromUtf8("textEdit_5"))
         self.widget = QtGui.QWidget(Dialog)
-        self.widget.setGeometry(QtCore.QRect(80, 40, 131, 431))
+        self.widget.setGeometry(QtCore.QRect(100, 40, 111, 411))
         self.widget.setObjectName(_fromUtf8("widget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.widget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
@@ -73,7 +73,7 @@ class Ui_Dialog(object):
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.verticalLayout.addWidget(self.label_10)
         self.textEdit = QtGui.QTextEdit(Dialog)
-        self.textEdit.setGeometry(QtCore.QRect(241, 41, 201, 81))
+        self.textEdit.setGeometry(QtCore.QRect(241, 41, 201, 51))
         self.textEdit.setMinimumSize(QtCore.QSize(109, 0))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
         self.buttonBox.raise_()
@@ -96,31 +96,6 @@ class Ui_Dialog(object):
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
         QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
-    '''
-    @QtCore.pyqtSlot(str)
-    def updateStatus(self, status):
-        self.m_Status.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPackVoltageEdit(self, status):
-        self.textEdit.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPVoltageEdit(self, status):
-        self.textEdit_2.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusBVoltageEdit(self, status):
-        self.textEdit_3.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPackCurrentEdit(self, status):
-        self.textEdit_4.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusSoCEdit(self, status):
-        self.textEdit_5.setText(status)
-        '''
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))
