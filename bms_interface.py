@@ -139,6 +139,12 @@ class worker(QtCore.QObject):
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 while(1):
+
+                    timerExpired = timerExpired + 1
+                    if timerExpired > 100:
+                        self.sendBMSPdo()
+                        timerExpired = 0
+
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
@@ -167,6 +173,14 @@ class worker(QtCore.QObject):
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
 
+    def sendBMSPdo(self):
+        CANMsg = TPCANMsg()
+        for i in range(CANMsg.LEN):
+            CANMsg.DATA[i] = 0
+        CANMsg.ID = 0x22D
+        CANMsg.LEN = 8
+        CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
+        self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
