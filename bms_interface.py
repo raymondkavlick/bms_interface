@@ -13,6 +13,7 @@ import bms_ui_form
 from PCANBasic import *        ## PCAN-Basic library import
 import sys
 import ui_helper
+from timeit import default_timer
 
 class Bms_Dyno(QtCore.QObject):
 
@@ -138,6 +139,7 @@ class worker(QtCore.QObject):
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
+                startTime = default_timer()
                 timerExpired = 0
                 while(1):
 
@@ -146,6 +148,7 @@ class worker(QtCore.QObject):
                     if timerExpired > 10000:
                         self.sendBMSPdo()
                         timerExpired = 0
+                        print default_timer()
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
