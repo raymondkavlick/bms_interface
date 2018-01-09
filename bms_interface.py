@@ -142,7 +142,7 @@ class worker(QtCore.QObject):
                 startTime = default_timer()
                 while(1):
 
-                    if default_timer() > startTime + .1:
+                    if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
 
