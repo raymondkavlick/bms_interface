@@ -143,7 +143,7 @@ class worker(QtCore.QObject):
 
 
                     timerExpired = timerExpired + 1
-                    if timerExpired > 100:
+                    if timerExpired > 10000:
                         self.sendBMSPdo()
                         timerExpired = 0
 
