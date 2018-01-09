@@ -140,15 +140,11 @@ class worker(QtCore.QObject):
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
-                timerExpired = 0
                 while(1):
 
-
-                    timerExpired = timerExpired + 1
-                    if timerExpired > 10000:
+                    if default_timer() > startTime + .1:
                         self.sendBMSPdo()
-                        timerExpired = 0
-                        print default_timer()
+                        startTime = default_timer()
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
