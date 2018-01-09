@@ -178,6 +178,17 @@ class worker(QtCore.QObject):
         CANMsg = TPCANMsg()
         for i in range(CANMsg.LEN):
             CANMsg.DATA[i] = 0
+
+        CHARGER_CONNECTED = 1
+        CHARGER_DISCONNECTED = 0
+        chargerState = CHARGER_DISCONNECTED
+        TOW_MODE_ON = 2
+        TOW_MODE_OFF = 0
+        towState = TOW_MODE_OFF
+        CANMsg.DATA[0] = towState + chargerState
+        RXV = 0
+        TXT = 1
+        CANMsg.DATA[1] = RXV
         CANMsg.ID = 0x22D
         CANMsg.LEN = 8
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
