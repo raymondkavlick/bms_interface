@@ -145,6 +145,7 @@ class worker(QtCore.QObject):
                 while(1):
 
                     if default_timer() > startTime + .5:#.1 = 100ms
+                        print "send PDO"
                         self.sendBMSPdo()
                         startTime = default_timer()
 
