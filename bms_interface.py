@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'bms_interface.ui'
@@ -6,8 +6,7 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-import sys
-print sys.executable
+
 import threading
 import time
 from PyQt4 import QtCore, QtGui
