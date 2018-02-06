@@ -125,9 +125,11 @@ class worker(QtCore.QObject):
             self.ioport = 0
             self.interrupt = 0
 
+            print "before"
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
 
+            print "after"
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
