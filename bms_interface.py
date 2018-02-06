@@ -43,7 +43,8 @@ class Bms_Dyno(QtCore.QObject):
         # Make any cross object connections.
         self._connectSignals()
 
-        self.Dialog.show()
+        #self.Dialog.show()
+        self.Dialog.showFullScreen()
 
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
