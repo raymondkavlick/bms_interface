@@ -144,10 +144,10 @@ class worker(QtCore.QObject):
                 startTime = default_timer()
                 while(1):
 
-                    if default_timer() > startTime + .5:#.1 = 100ms
-                        print "send PDO"
-                        self.sendBMSPdo()
-                        startTime = default_timer()
+                    #if default_timer() > startTime + .5:#.1 = 100ms
+                      #  print "send PDO"
+                      #  self.sendBMSPdo()
+                      #  startTime = default_timer()
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
