@@ -151,6 +151,7 @@ class worker(QtCore.QObject):
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
+                        print "Gotmsg"
                         msg = readResult[1]  # readResult[1] TPCANMsg()
                         idhex = format(msg.ID, 'X')
                         print'ID = ', idhex,
