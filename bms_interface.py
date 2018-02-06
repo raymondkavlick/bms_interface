@@ -120,16 +120,14 @@ class worker(QtCore.QObject):
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
             self.m_PcanHandle = PCAN_USBBUS1
-            self.baudrate = PCAN_BAUD_500K
+            self.baudrate = PCAN_BAUD_250K
             self.hwtype = PCAN_USBBUS1
             self.ioport = 0
             self.interrupt = 0
 
-            print "before"
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
 
-            print "after"
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
@@ -144,14 +142,12 @@ class worker(QtCore.QObject):
                 startTime = default_timer()
                 while(1):
 
-                    #if default_timer() > startTime + .5:#.1 = 100ms
-                      #  print "send PDO"
-                      #  self.sendBMSPdo()
-                      #  startTime = default_timer()
+                    if default_timer() > startTime + .5:#.1 = 100ms
+                        self.sendBMSPdo()
+                        startTime = default_timer()
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
-                        print "Gotmsg"
                         msg = readResult[1]  # readResult[1] TPCANMsg()
                         idhex = format(msg.ID, 'X')
                         print'ID = ', idhex,
