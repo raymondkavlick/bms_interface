@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
-    <height>644</height>
+    <width>798</width>
+    <height>775</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>600</y>
+     <x>440</x>
+     <y>730</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>530</y>
+     <x>340</x>
+     <y>660</y>
      <width>151</width>
      <height>61</height>
     </rect>
@@ -45,8 +45,8 @@
   <widget class="QTextEdit" name="m_Status">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>530</y>
+     <x>510</x>
+     <y>660</y>
      <width>241</width>
      <height>61</height>
     </rect>
@@ -61,93 +61,101 @@
     <bool>false</bool>
    </property>
   </widget>
-  <widget class="QTextEdit" name="textEdit_2">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>241</x>
-     <y>128</y>
-     <width>201</width>
-     <height>51</height>
+     <x>460</x>
+     <y>60</y>
+     <width>281</width>
+     <height>541</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
+     <pointsize>36</pointsize>
     </font>
    </property>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="minimumSize">
+       <size>
+        <width>109</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>36</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="font">
+       <font>
+        <pointsize>36</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit_3">
+      <property name="font">
+       <font>
+        <pointsize>36</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit_4">
+      <property name="font">
+       <font>
+        <pointsize>36</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QTextEdit" name="textEdit_5">
+      <property name="font">
+       <font>
+        <pointsize>36</pointsize>
+        <weight>75</weight>
+        <italic>true</italic>
+        <bold>true</bold>
+       </font>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
-  <widget class="QTextEdit" name="textEdit_3">
+  <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>241</x>
-     <y>215</y>
-     <width>201</width>
-     <height>51</height>
+     <x>41</x>
+     <y>51</y>
+     <width>361</width>
+     <height>551</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textEdit_4">
-   <property name="geometry">
-    <rect>
-     <x>241</x>
-     <y>302</y>
-     <width>201</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
-  <widget class="QTextEdit" name="textEdit_5">
-   <property name="geometry">
-    <rect>
-     <x>241</x>
-     <y>389</y>
-     <width>201</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>201</width>
-     <height>411</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
+     <pointsize>36</pointsize>
     </font>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -155,7 +163,7 @@
      <widget class="QLabel" name="label_6">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>36</pointsize>
         <weight>75</weight>
         <italic>true</italic>
         <bold>true</bold>
@@ -170,7 +178,7 @@
      <widget class="QLabel" name="label_7">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>36</pointsize>
         <weight>75</weight>
         <italic>true</italic>
         <bold>true</bold>
@@ -185,7 +193,7 @@
      <widget class="QLabel" name="label_8">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>36</pointsize>
         <weight>75</weight>
         <italic>true</italic>
         <bold>true</bold>
@@ -200,7 +208,7 @@
      <widget class="QLabel" name="label_9">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>36</pointsize>
         <weight>75</weight>
         <italic>true</italic>
         <bold>true</bold>
@@ -215,7 +223,7 @@
      <widget class="QLabel" name="label_10">
       <property name="font">
        <font>
-        <pointsize>24</pointsize>
+        <pointsize>36</pointsize>
         <weight>75</weight>
         <italic>true</italic>
         <bold>true</bold>
@@ -228,30 +236,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
-   <property name="geometry">
-    <rect>
-     <x>241</x>
-     <y>41</y>
-     <width>201</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>109</width>
-     <height>0</height>
-    </size>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>24</pointsize>
-     <weight>75</weight>
-     <italic>true</italic>
-     <bold>true</bold>
-    </font>
-   </property>
-  </widget>
   <zorder>layoutWidget</zorder>
   <zorder>buttonBox</zorder>
   <zorder>pushButton</zorder>
@@ -261,8 +245,10 @@
   <zorder>textEdit_4</zorder>
   <zorder>textEdit_5</zorder>
   <zorder>textEdit</zorder>
+  <zorder>label_10</zorder>
   <zorder>label_9</zorder>
-  <zorder>label_6</zorder>
+  <zorder>label_8</zorder>
+  <zorder>label_7</zorder>
  </widget>
  <resources/>
  <connections>
