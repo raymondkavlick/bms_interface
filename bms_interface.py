@@ -213,6 +213,7 @@ class worker(QtCore.QObject):
         CANMsg.LEN = 8
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
+        self.m_objPCANBasic.Write(self.m_PcanHandle2, CANMsg)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
