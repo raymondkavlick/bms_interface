@@ -30,7 +30,6 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
     def updateStatusPackCurrentEdit(self, status):
         self.textEdit_4.setText(status)
 
-
     @QtCore.pyqtSlot(str)
     def updateStatusSoCEdit(self, status):
         self.textEdit_5.setText(status)
