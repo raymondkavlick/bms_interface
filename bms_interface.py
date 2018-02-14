@@ -50,6 +50,7 @@ class Bms_Dyno(QtCore.QObject):
 
         #self.Dialog.show()
         self.Dialog.showFullScreen()
+        self.worker.startWork()#auto connect at bootup
 
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
