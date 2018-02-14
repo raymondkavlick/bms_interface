@@ -25,6 +25,11 @@ class Bms_Dyno(QtCore.QObject):
     signalBVoltageEdit = QtCore.pyqtSignal(str)
     signalPackCurrentEdit = QtCore.pyqtSignal(str)
     signalSoCEdit = QtCore.pyqtSignal(str)
+    signal2PackVoltageEdit = QtCore.pyqtSignal(str)
+    signal2PVoltageEdit = QtCore.pyqtSignal(str)
+    signal2BVoltageEdit = QtCore.pyqtSignal(str)
+    signal2PackCurrentEdit = QtCore.pyqtSignal(str)
+    signal2SoCEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -61,6 +66,17 @@ class Bms_Dyno(QtCore.QObject):
         self.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
         self.worker.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
 
+        self.signal2PackVoltageEdit.connect(self.gui.updateStatus2PackVoltageEdit)
+        self.worker.signal2PackVoltageEdit.connect(self.gui.updateStatus2PackVoltageEdit)
+        self.signal2PVoltageEdit.connect(self.gui.updateStatus2PVoltageEdit)
+        self.worker.signal2PVoltageEdit.connect(self.gui.updateStatus2PVoltageEdit)
+        self.signal2BVoltageEdit.connect(self.gui.updateStatus2BVoltageEdit)
+        self.worker.signal2BVoltageEdit.connect(self.gui.updateStatus2BVoltageEdit)
+        self.signal2PackCurrentEdit.connect(self.gui.updateStatus2PackCurrentEdit)
+        self.worker.signal2PackCurrentEdit.connect(self.gui.updateStatus2PackCurrentEdit)
+        self.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
+        self.worker.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
+
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
     signalPackVoltageEdit = QtCore.pyqtSignal(str)
@@ -68,6 +84,12 @@ class worker(QtCore.QObject):
     signalBVoltageEdit = QtCore.pyqtSignal(str)
     signalPackCurrentEdit = QtCore.pyqtSignal(str)
     signalSoCEdit = QtCore.pyqtSignal(str)
+    signal2PackVoltageEdit = QtCore.pyqtSignal(str)
+    signal2PVoltageEdit = QtCore.pyqtSignal(str)
+    signal2BVoltageEdit = QtCore.pyqtSignal(str)
+    signal2PackCurrentEdit = QtCore.pyqtSignal(str)
+    signal2SoCEdit = QtCore.pyqtSignal(str)
+
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -138,26 +160,16 @@ class worker(QtCore.QObject):
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
             result2 = self.m_objPCANBasic.Initialize(self.m_PcanHandle2,self.baudrate2,self.hwtype2,self.ioport2,self.interrupt2)
 
-            if result != PCAN_ERROR_OK:
-                print "Error - PCAN not initializing."
-            else:
-                print "OKError - PCAN not initializing."
-
-            if result2 != PCAN_ERROR_OK:
-                print "Error2 - PCAN not initializing."
-            else:
-                print "OKError2 - PCAN not initializing."
-
-            if result != PCAN_ERROR_OK:
+            if result != PCAN_ERROR_OK or result2 != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
-                    self.signalStatus.emit('PeakCAN Dongle Not Found.')
+                    self.signalStatus.emit('PeakCAN Dongle\'s Not Found.')
                 else:
                     result = PCAN_ERROR_OK
                     self.signalStatus.emit("PeakCAN Connected!.")
             else:
                 # Prepares the PCAN-Basic's PCAN-Trace file
-                print "PCAN - Initialized."
+                print "PCAN 1 & 2 - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
                 while(1):
@@ -170,15 +182,15 @@ class worker(QtCore.QObject):
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
                         idhex = format(msg.ID, 'X')
-                        print'ID = ', idhex,
-                        print(format(msg.DATA[0], '02X')),
-                        print(format(msg.DATA[1], '02X')),
-                        print(format(msg.DATA[2], '02X')),
-                        print(format(msg.DATA[3], '02X')),
-                        print(format(msg.DATA[4], '02X')),
-                        print(format(msg.DATA[5], '02X')),
-                        print(format(msg.DATA[6], '02X')),
-                        print(format(msg.DATA[7], '02X'))
+                        #print'ID = ', idhex,
+                        #print(format(msg.DATA[0], '02X')),
+                        #print(format(msg.DATA[1], '02X')),
+                        #print(format(msg.DATA[2], '02X')),
+                        #print(format(msg.DATA[3], '02X')),
+                        #print(format(msg.DATA[4], '02X')),
+                        #print(format(msg.DATA[5], '02X')),
+                        #print(format(msg.DATA[6], '02X')),
+                        #print(format(msg.DATA[7], '02X'))
                         if msg.ID == 0x1AD:
                             self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
@@ -193,6 +205,34 @@ class worker(QtCore.QObject):
                         elif msg.ID == 0x3AD:
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
+
+                    readResult2 = self.m_objPCANBasic.Read(self.m_PcanHandle2)
+                    if readResult2[0] == PCAN_ERROR_OK:
+                        msg2 = readResult2[1]  # readResult[1] TPCANMsg()
+                        idhex2 = format(msg2.ID, 'X')
+                        print'ID = ', idhex2,
+                        print(format(msg2.DATA[0], '02X')),
+                        print(format(msg2.DATA[1], '02X')),
+                        print(format(msg2.DATA[2], '02X')),
+                        print(format(msg2.DATA[3], '02X')),
+                        print(format(msg2.DATA[4], '02X')),
+                        print(format(msg2.DATA[5], '02X')),
+                        print(format(msg2.DATA[6], '02X')),
+                        print(format(msg2.DATA[7], '02X'))
+                        if msg2.ID == 0x1AD:
+                            #self.signalStatus.emit("BMS Connected.")
+                            PackVoltage2 = msg2.DATA[0] + (msg2.DATA[1] * 256)  # endian
+                            PackCurrent2 = msg2.DATA[2] + (msg2.DATA[3] * 256)  # endian
+                            SoC2 = msg2.DATA[5]
+                            self.signal2PackVoltageEdit.emit(str(float(PackVoltage2) / 100) + " Volts")
+                            self.signal2PackCurrentEdit.emit(str(float(PackCurrent2) / 100) + " Amps")
+                            self.signal2SoCEdit.emit(str(SoC2) + "%")
+                        elif msg2.ID == 0x2AD:
+                            BVoltage2 = msg2.DATA[4] + (msg2.DATA[5] * 256)  # endian
+                            self.signal2BVoltageEdit.emit(str(float(BVoltage2) / 100) + " Volts")
+                        elif msg2.ID == 0x3AD:
+                            PVoltage2 = msg2.DATA[6] + (msg2.DATA[7] * 256)  # endian
+                            self.signal2PVoltageEdit.emit(str(float(PVoltage2) / 100) + " Volts")
 
     def sendBMSPdo(self):
         CANMsg = TPCANMsg()
