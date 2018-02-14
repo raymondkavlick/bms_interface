@@ -34,3 +34,24 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
     @QtCore.pyqtSlot(str)
     def updateStatusSoCEdit(self, status):
         self.textEdit_5.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPack2VoltageEdit(self, status):
+        self.textEdit_11.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPack2VoltageEdit(self, status):
+        self.textEdit_12.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPack2VoltageEdit(self, status):
+        self.textEdit_13.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPack2VoltageEdit(self, status):
+        self.textEdit_14.setText(status)
+
+    @QtCore.pyqtSlot(str)
+    def updateStatusPack2VoltageEdit(self, status):
+        self.textEdit_15.setText(status)
+

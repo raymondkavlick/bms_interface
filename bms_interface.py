@@ -128,8 +128,25 @@ class worker(QtCore.QObject):
             self.ioport = 0
             self.interrupt = 0
 
+            self.m_PcanHandle2 = PCAN_USBBUS2
+            self.baudrate2 = PCAN_BAUD_250K
+            self.hwtype2 = PCAN_USBBUS2
+            self.ioport = 0
+            self.interrupt = 0
+
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
+            result2 = self.m_objPCANBasic.Initialize(self.m_PcanHandle2,self.baudrate2,self.hwtype2,self.ioport2,self.interrupt2)
+
+            if result != PCAN_ERROR_OK:
+                print "Error - PCAN not initializing."
+            else:
+                print "Error - PCAN not initializing."
+
+            if result2 != PCAN_ERROR_OK:
+                print "Error2 - PCAN not initializing."
+            else:
+                print "Error2 - PCAN not initializing."
 
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
