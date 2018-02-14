@@ -141,12 +141,12 @@ class worker(QtCore.QObject):
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
             else:
-                print "Error - PCAN not initializing."
+                print "OKError - PCAN not initializing."
 
             if result2 != PCAN_ERROR_OK:
                 print "Error2 - PCAN not initializing."
             else:
-                print "Error2 - PCAN not initializing."
+                print "OKError2 - PCAN not initializing."
 
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
