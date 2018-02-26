@@ -144,7 +144,7 @@ class worker(QtCore.QObject):
                     print "error2"
     '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
-            print "startWorker Thread Rx!"
+            print "startWorker Thread Rx! --test"
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
             self.hwtype = PCAN_USBBUS1
