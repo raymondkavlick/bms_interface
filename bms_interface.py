@@ -196,8 +196,7 @@ class worker(QtCore.QObject):
                             self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
-                            if(PackCurrent & 0x8000):
-                                PackCurrent += 0xFFFFFFFFFFFF0000
+                            PackCurrent = c_int16(PackCurrent)
 
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
@@ -290,3 +289,8 @@ if __name__ == "__main__":
         self.textEdit_5.setText(status)
     
     '''
+
+def sign_extending(x, b):
+    if x&(1<<(b-1)): # is the highest bit (sign) set? (x>>(b-1)) would be faster
+        return x-(1<<b) # 2s complement
+    return x
