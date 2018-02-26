@@ -198,7 +198,7 @@ class worker(QtCore.QObject):
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
-                            self.signalPackCurrentEdit.emit(str(float(PackCurrent) / 100) + " Amps")
+                            self.signalPackCurrentEdit.emit(str(float(PackCurrent) / -10) + " Amps")
                             self.signalSoCEdit.emit(str(SoC) + "%")
                         elif msg.ID == 0x2AD:
                             BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
