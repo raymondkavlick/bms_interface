@@ -196,13 +196,10 @@ class worker(QtCore.QObject):
                             self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
-                            #PackCurrent = 0xFC18
                             PackCurrent = c_int16(PackCurrent)
-                            #if(PackCurrent & 0x8000):
-                            #    PackCurrent |= 0xFFFFFFFFFFFF0000
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
-                            self.signalPackCurrentEdit.emit(str(float(PackCurrent.value) / 10) + " Amps")
+                            self.signalPackCurrentEdit.emit(str(float(PackCurrent.value) / -10) + " Amps")
                             self.signalSoCEdit.emit(str(SoC) + "%")
                         elif msg.ID == 0x2AD:
                             BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
