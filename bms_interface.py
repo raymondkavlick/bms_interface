@@ -144,7 +144,7 @@ class worker(QtCore.QObject):
                     print "error2"
     '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
-            print "startWorker Thread Rx! --test"
+            print "startWorker Thread Rx!"
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
             self.hwtype = PCAN_USBBUS1
@@ -197,7 +197,6 @@ class worker(QtCore.QObject):
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             PackCurrent = c_int16(PackCurrent)
-                            PackCurrent = 1000
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
                             self.signalPackCurrentEdit.emit(str(float(PackCurrent) / -10) + " Amps")
