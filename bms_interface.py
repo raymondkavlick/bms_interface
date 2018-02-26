@@ -197,7 +197,7 @@ class worker(QtCore.QObject):
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             if(PackCurrent & 0x8000):
-                                PackCurrent += 0xFFFF0000
+                                PackCurrent += 0xFFFFFFFFFFFF0000
 
                             SoC = msg.DATA[5]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
