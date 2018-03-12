@@ -159,15 +159,16 @@ class worker(QtCore.QObject):
 
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
-            result2 = self.m_objPCANBasic.Initialize(self.m_PcanHandle2,self.baudrate2,self.hwtype2,self.ioport2,self.interrupt2)
+            #result2 = self.m_objPCANBasic.Initialize(self.m_PcanHandle2,self.baudrate2,self.hwtype2,self.ioport2,self.interrupt2)
 
-            if result != PCAN_ERROR_OK or result2 != PCAN_ERROR_OK:
+            #if result != PCAN_ERROR_OK or result2 != PCAN_ERROR_OK:
+            if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
                     self.signalStatus.emit('PeakCAN Dongle\'s Not Found.')
-                else:
-                    result = PCAN_ERROR_OK
-                    self.signalStatus.emit("PeakCAN Connected!.")
+                #else:
+                  #  result = PCAN_ERROR_OK
+                  #  self.signalStatus.emit("PeakCAN Connected!.")
             else:
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN 1 & 2 - Initialized."
