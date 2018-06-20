@@ -147,12 +147,8 @@ class worker(QtCore.QObject):
             print "startWorker Thread Rx!"
 
             import RPi.GPIO as GPIO
-            GPIO.setmode(GPIO.BCM)
-            LED = 17
-            ledState = False
+            LED = 21
             GPIO.setup(LED, GPIO.OUT)
-
-            ledState = not ledState
             GPIO.output(LED, GPIO.HIGH)
 
             self.m_PcanHandle = PCAN_USBBUS1
