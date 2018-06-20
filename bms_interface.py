@@ -151,6 +151,7 @@ class worker(QtCore.QObject):
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(LED, GPIO.OUT)
             GPIO.output(LED, GPIO.HIGH)
+            GPIO.output(LED, GPIO.LOW)
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
