@@ -145,6 +145,16 @@ class worker(QtCore.QObject):
     '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
+
+            import RPi.GPIO as GPIO
+            GPIO.setmode(GPIO.BCM)
+            LED = 17
+            ledState = False
+            GPIO.setup(LED, GPIO.OUT)
+
+            ledState = not ledState
+            GPIO.output(LED, GPIO.HIGH)
+
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
             self.hwtype = PCAN_USBBUS1
