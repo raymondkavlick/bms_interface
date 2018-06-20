@@ -144,7 +144,7 @@ class worker(QtCore.QObject):
                     print "error2"
     '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
-            print "startWorker Thread Rx!"
+            print "startWorker Thread Rx1!"
 
             import RPi.GPIO as GPIO
             LED = 21
