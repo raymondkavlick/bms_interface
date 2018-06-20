@@ -148,6 +148,7 @@ class worker(QtCore.QObject):
 
             import RPi.GPIO as GPIO
             LED = 21
+            GPIO.setmode(GPIO.BCM)
             GPIO.setup(LED, GPIO.OUT)
             GPIO.output(LED, GPIO.HIGH)
 
