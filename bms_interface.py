@@ -190,10 +190,16 @@ class worker(QtCore.QObject):
                 print "PCAN 1 & 2 - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
+
                 while(1):
 
                     time_remaining = default_timer()
-                    self.signalPackVoltageEdit.emit(str(time_remaining))
+                    self.signalTimeRemainingEditEdit.emit(str(time_remaining))
+                    
+                while(1):
+
+                    time_remaining = default_timer()
+                    self.signalTimeRemainingEditEdit.emit(str(time_remaining))
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
