@@ -46,6 +46,7 @@ class Bms_Dyno(QtCore.QObject):
         self.gui = ui_helper.Ui_Dialog_Derived()
         self.gui.setupUi(self.Dialog)
 
+        self.gui.pushButton.setEnabled(False);
         # Setup the worker object and the worker_thread.
         self.worker = worker()
         self.worker_thread = QtCore.QThread()
@@ -112,7 +113,6 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            self.gui.pushButton.setEnabled(False);
             self.signalStatus.emit("Connecting Peak...")
 
             GPIO.setwarnings(False)
