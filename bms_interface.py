@@ -191,7 +191,7 @@ class worker(QtCore.QObject):
         if time_remaining == 0:
             GPIO.output(21, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
-        else
+        else:
             time_now = int(round(time.time()))
             time_remaining = (10) - (time_now - start)
             #time_remaining = (60 * 60 * 8) - (time_now - start)
