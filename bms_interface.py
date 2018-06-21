@@ -166,7 +166,7 @@ class worker(QtCore.QObject):
             while (1):
                 time_now =  int(round(time.time()))
                 time_remaining = (60 * 60 * 2) - (time_now - startTime_s)
-                string_time_remain = "%02d:" % ((((time_remaining / 24) / 60) % 60),)\
+                string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),)\
                                      +"%02d:" % (((time_remaining / 60) % 60),) \
                                      + "%02d" % ((time_remaining % 60),)
                 self.signalTimeRemainingEdit.emit(string_time_remain)
