@@ -158,13 +158,12 @@ class worker(QtCore.QObject):
             GPIO.setup(BMS_KEY, GPIO.OUT)
             Bms_Key_State = False
             GPIO.output(BMS_KEY, Bms_Key_State)
-            time.sleep(3)
-            time_remaining = default_timer()
-
-            startTime = default_timer() / 1000
+            #time.sleep(3)
+            import datetime
+            startTime_s = datetime.datetime.now()#default_timer() / 1000
             while (1):
-                    time_now = default_timer() / 1000
-                    time_remaining = (60 * 60 * 8) - (time_now - startTime)
+                    time_now = datetime.datetime.now()#default_timer() / 1000
+                    time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
                     self.signalTimeRemainingEdit.emit(str(time_remaining))
                     time.sleep(1)
 
