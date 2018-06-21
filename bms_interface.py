@@ -37,6 +37,7 @@ class Bms_Dyno(QtCore.QObject):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
+        self.time_remaining = 1
         # Create a gui object.
         self.Dialog = QtGui.QDialog()
         self.gui = ui_helper.Ui_Dialog_Derived()
@@ -115,6 +116,7 @@ class worker(QtCore.QObject):
             #GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
+            time_remaining = 1
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -186,19 +188,17 @@ class worker(QtCore.QObject):
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
-    time_remaining = 1
     def draw_time_remaining(self, start):
-        global time_remaining
-        if time_remaining == 0:
+        if self.time_remaining == 0:
             GPIO.output(21, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
         else:
             time_now = int(round(time.time()))
-            time_remaining = (10) - (time_now - start)
+            self.time_remaining = (10) - (time_now - start)
             #time_remaining = (60 * 60 * 8) - (time_now - start)
-            string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
-                                 + "%02d:" % (((time_remaining / 60) % 60),) \
-                                 + "%02d" % ((time_remaining % 60),)
+            string_time_remain = "%02d:" % (((self.time_remaining / 3600) % 24),) \
+                                 + "%02d:" % (((self.time_remaining / 60) % 60),) \
+                                 + "%02d" % ((self.time_remaining % 60),)
             self.signalTimeRemainingEdit.emit(string_time_remain)
 
 if __name__ == "__main__":
