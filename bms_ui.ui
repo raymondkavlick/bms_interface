@@ -16,7 +16,7 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>1260</x>
+     <x>440</x>
      <y>830</y>
      <width>341</width>
      <height>32</height>
@@ -32,8 +32,8 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>980</x>
-     <y>790</y>
+     <x>350</x>
+     <y>740</y>
      <width>151</width>
      <height>61</height>
     </rect>
@@ -45,9 +45,9 @@
   <widget class="QTextEdit" name="m_Status">
    <property name="geometry">
     <rect>
-     <x>1140</x>
-     <y>790</y>
-     <width>241</width>
+     <x>510</x>
+     <y>740</y>
+     <width>271</width>
      <height>61</height>
     </rect>
    </property>
@@ -255,9 +255,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>180</x>
+     <x>130</x>
      <y>30</y>
-     <width>501</width>
+     <width>581</width>
      <height>71</height>
     </rect>
    </property>
