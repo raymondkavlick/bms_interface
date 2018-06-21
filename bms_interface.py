@@ -116,14 +116,14 @@ class worker(QtCore.QObject):
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
             self.signalPushButton.emit("")
-            self.signalStatus.emit("Connecting Peak...")
+            self.signalStatus.emit("Connecting to Peak...")
 
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
-            GPIO.setup(21, GPIO.OUT)
+            GPIO.setup(bms_dyno.BMS_KEY, GPIO.OUT)
             GPIO.output(bms_dyno.BMS_KEY, GPIO.HIGH)
             time.sleep(3)
-            start_time_remain = int(round(time.time()))
+            start_time_remain = self.get_seconds()
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -146,19 +146,29 @@ class worker(QtCore.QObject):
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
+                timeout_count = 0
 
                 while(1):
+
+                    if timeout_count > 4:#timeout has occured
+                        self.signalPackVoltageEdit.emit("CAN TIMEOUT");
+                        self.signalPackCurrentEdit.emit("CAN TIMEOUT");
+                        self.signalBVoltageEdit.emit("CAN TIMEOUT");
+                        self.signalPVoltageEdit.emit("CAN TIMEOUT");
+                        self.signalStatus.emit("BMS Missing.")
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
                         self.draw_time_remaining(start_time_remain)
+                        timeout_count += 1
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
                         idhex = format(msg.ID, 'X')
                         if msg.ID == 0x1AD:
+                            timeout_count = 0
                             self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
@@ -173,7 +183,6 @@ class worker(QtCore.QObject):
                         elif msg.ID == 0x3AD:
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
-
 
     def sendBMSPdo(self):
         CANMsg = TPCANMsg()
@@ -195,9 +204,6 @@ class worker(QtCore.QObject):
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
-    def get_seconds(self):
-        return int(round(time.time()))
-
     def draw_time_remaining(self, start):
         if bms_dyno.time_remaining == 0:
             GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
@@ -210,6 +216,9 @@ class worker(QtCore.QObject):
                                  + "%02d:" % (((bms_dyno.time_remaining / 60) % 60),) \
                                  + "%02d" % ((bms_dyno.time_remaining % 60),)
             self.signalTimeRemainingEdit.emit(string_time_remain)
+
+    def get_seconds(self):
+        return int(round(time.time()))
 
 
 if __name__ == "__main__":
