@@ -58,3 +58,7 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
     def updateStatusTimeRemainingEdit(self, status):
         self.textEdit_6.setText(status)
 
+    @QtCore.pyqtSlot(str)
+    def updatePushButton(self):
+        self.pushButton.setEnabled(False)
+

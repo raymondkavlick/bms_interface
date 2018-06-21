@@ -33,6 +33,7 @@ class Bms_Dyno(QtCore.QObject):
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
+    signalPushButton = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -87,6 +88,8 @@ class Bms_Dyno(QtCore.QObject):
 
         self.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
         self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
+        self.signalPushButton.connect(self.gui.updatePushButton)
+        self.worker.signalPushButton.connect(self.gui.updatePushButton)
 
 
 class worker(QtCore.QObject):
@@ -102,7 +105,7 @@ class worker(QtCore.QObject):
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-
+    signalPushButton = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -112,6 +115,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
+            self.signalPushButton.emit()
             self.signalStatus.emit("Connecting Peak...")
 
             GPIO.setwarnings(False)
