@@ -195,13 +195,13 @@ class worker(QtCore.QObject):
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN 1 & 2 - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
-                startTime = default_timer()
+                startTime = default_timer() / 1000
 
 
                 while(1):
-
-                    time_remaining = default_timer()
-                    self.signalTimeRemainingEdit.emit(str(time_remaining / 100))
+                    time_now = default_timer() / 1000
+                    time_remaining = (60 * 60 * 8) - (time_now - startTime)
+                    self.signalTimeRemainingEdit.emit(str(time_remaining))
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
