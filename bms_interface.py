@@ -115,6 +115,7 @@ class worker(QtCore.QObject):
             GPIO.setup(BMS_KEY, GPIO.OUT)
             Bms_Key_State = False
             GPIO.output(BMS_KEY, Bms_Key_State)
+            Bms_Key_State = True
             time.sleep(3)
             startTime = int(round(time.time()))
 
@@ -208,4 +209,5 @@ def draw_time_remaining(self,start):
                          + "%02d:" % (((time_remaining / 60) % 60),) \
                          + "%02d" % ((time_remaining % 60),)
     self.signalTimeRemainingEdit.emit(string_time_remain)
-    if time_remianing <= 0:
+    if time_remaining <= 0:
+        Bms_Key_State = False
