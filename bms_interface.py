@@ -154,6 +154,7 @@ class worker(QtCore.QObject):
             print "startWorker Thread Rx!"
 
             BMS_KEY = 21
+            GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(BMS_KEY, GPIO.OUT)
             Bms_Key_State = False
