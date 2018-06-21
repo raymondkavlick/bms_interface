@@ -195,7 +195,7 @@ class worker(QtCore.QObject):
                              + "%02d:" % (((time_remaining / 60) % 60),) \
                              + "%02d" % ((time_remaining % 60),)
         self.signalTimeRemainingEdit.emit(string_time_remain)
-        if time_remaining <= 0:
+        if time_remaining == 0:
             GPIO.output(self.BMS_KEY, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
 
