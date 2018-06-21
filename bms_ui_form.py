@@ -302,6 +302,7 @@ class Ui_Dialog(object):
         self.textEdit_6.setFocusPolicy(QtCore.Qt.NoFocus)
         self.textEdit_6.setAcceptDrops(False)
         self.textEdit_6.setAutoFillBackground(False)
+        self.textEdit_6.setStyleSheet(_fromUtf8("background: rgb(250, 243, 255)"))
         self.textEdit_6.setFrameShape(QtGui.QFrame.NoFrame)
         self.textEdit_6.setFrameShadow(QtGui.QFrame.Sunken)
         self.textEdit_6.setReadOnly(True)
