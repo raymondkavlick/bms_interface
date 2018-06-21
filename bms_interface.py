@@ -33,6 +33,7 @@ class Bms_Dyno(QtCore.QObject):
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
+    BMS_KEY = 21
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -109,7 +110,6 @@ class worker(QtCore.QObject):
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
 
-            BMS_KEY = 21
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(BMS_KEY, GPIO.OUT)
