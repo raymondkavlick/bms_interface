@@ -150,18 +150,19 @@ class worker(QtCore.QObject):
 
                 while(1):
 
-                    if timeout_count > 4:#timeout has occured
-                        self.signalPackVoltageEdit.emit("CAN TIMEOUT");
-                        self.signalPackCurrentEdit.emit("CAN TIMEOUT");
-                        self.signalBVoltageEdit.emit("CAN TIMEOUT");
-                        self.signalPVoltageEdit.emit("CAN TIMEOUT");
-                        self.signalStatus.emit("BMS Missing.")
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
                         self.draw_time_remaining(start_time_remain)
                         timeout_count += 1
+
+                        if timeout_count > 4:#timeout has occured
+                            self.signalPackVoltageEdit.emit("CAN TIMEOUT");
+                            self.signalPackCurrentEdit.emit("CAN TIMEOUT");
+                            self.signalBVoltageEdit.emit("CAN TIMEOUT");
+                            self.signalPVoltageEdit.emit("CAN TIMEOUT");
+                            self.signalStatus.emit("BMS Missing.")
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
