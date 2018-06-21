@@ -17,6 +17,7 @@ import sys
 import ui_helper
 from timeit import default_timer
 import RPi.GPIO as GPIO
+from threading import Timer
 
 class Bms_Dyno(QtCore.QObject):
 
@@ -165,10 +166,10 @@ class worker(QtCore.QObject):
 
 
             while (1):
-                    time_now = datetime.datetime.seconds #default_timer() / 1000
-                    time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
-                    self.signalTimeRemainingEdit.emit(str(time_remaining))
-                    time.sleep(1)
+                time_now = datetime.datetime.seconds #default_timer() / 1000
+                time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
+                self.signalTimeRemainingEdit.emit(str(time_remaining))
+                time.sleep(1)
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
