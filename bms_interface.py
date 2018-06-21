@@ -163,7 +163,6 @@ class worker(QtCore.QObject):
             #time.sleep(3)
             startTime_s = int(round(time.time()))
 
-
             while (1):
                 time_now =  int(round(time.time()))
                 time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
