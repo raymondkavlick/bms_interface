@@ -195,18 +195,22 @@ class worker(QtCore.QObject):
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
+    def get_seconds(self):
+        return int(round(time.time()))
+
     def draw_time_remaining(self, start):
         if bms_dyno.time_remaining == 0:
             GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
         else:
-            time_now = int(round(time.time()))
+            time_now = self.get_seconds()
             #bms_dyno.time_remaining = (60 * 60 * 8) - (time_now - start)
             bms_dyno.time_remaining = (10) - (time_now - start)
             string_time_remain = "%02d:" % (((bms_dyno.time_remaining / 3600) % 24),) \
                                  + "%02d:" % (((bms_dyno.time_remaining / 60) % 60),) \
                                  + "%02d" % ((bms_dyno.time_remaining % 60),)
             self.signalTimeRemainingEdit.emit(string_time_remain)
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
