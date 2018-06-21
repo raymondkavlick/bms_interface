@@ -161,11 +161,12 @@ class worker(QtCore.QObject):
             time.sleep(3)
             time_remaining = default_timer()
 
-            time_start = default_timer()
+            startTime = default_timer() / 1000
             while (1):
-                time_remaining = default_timer()
-                self.signalTimeRemainingEdit.emit(str(time_start))
-                time.sleep(1)
+                    time_now = default_timer() / 1000
+                    time_remaining = (60 * 60 * 8) - (time_now - startTime)
+                    self.signalTimeRemainingEdit.emit(str(time_remaining))
+                    time.sleep(1)
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -202,6 +203,7 @@ class worker(QtCore.QObject):
                     time_now = default_timer() / 1000
                     time_remaining = (60 * 60 * 8) - (time_now - startTime)
                     self.signalTimeRemainingEdit.emit(str(time_remaining))
+                    time.sleep(1)
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
