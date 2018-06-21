@@ -59,6 +59,6 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
         self.textEdit_6.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updatePushButton(self):
+    def updatePushButton(self,status):
         self.pushButton.setEnabled(False)
 
