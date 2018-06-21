@@ -115,6 +115,7 @@ class worker(QtCore.QObject):
             #GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
+            current_time_remain = 0;
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -143,7 +144,7 @@ class worker(QtCore.QObject):
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
-                        self.draw_time_remaining(start_time_remain)
+                        self.draw_time_remaining(start_time_remain,current_time_remain)
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
@@ -186,17 +187,18 @@ class worker(QtCore.QObject):
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
-    def draw_time_remaining(self, start):
-        time_now = int(round(time.time()))
-        time_remaining = (10) - (time_now - start)
-        #time_remaining = (60 * 60 * 8) - (time_now - start)
-        string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
-                             + "%02d:" % (((time_remaining / 60) % 60),) \
-                             + "%02d" % ((time_remaining % 60),)
-        self.signalTimeRemainingEdit.emit(string_time_remain)
+    def draw_time_remaining(self, start,time_remaining):
         if time_remaining == 0:
             GPIO.output(21, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
+        else
+            time_now = int(round(time.time()))
+            time_remaining = (10) - (time_now - start)
+            #time_remaining = (60 * 60 * 8) - (time_now - start)
+            string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
+                                 + "%02d:" % (((time_remaining / 60) % 60),) \
+                                 + "%02d" % ((time_remaining % 60),)
+            self.signalTimeRemainingEdit.emit(string_time_remain)
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
