@@ -117,7 +117,7 @@ class worker(QtCore.QObject):
             GPIO.output(BMS_KEY, Bms_Key_State)
             Bms_Key_State = True
             time.sleep(3)
-            startTime = int(round(time.time()))
+            start_time_remain = int(round(time.time()))
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -139,14 +139,14 @@ class worker(QtCore.QObject):
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
-
+                startTime = default_timer()
 
                 while(1):
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
-                        self.draw_time_remaining(startTime)
+                        self.start_time_remain(startTime)
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
