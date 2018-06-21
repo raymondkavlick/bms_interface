@@ -161,9 +161,10 @@ class worker(QtCore.QObject):
             time.sleep(3)
             time_remaining = default_timer()
 
+            time_start = default_timer()
             while (1):
                 time_remaining = default_timer()
-                self.signalTimeRemainingEdit.emit(str(time_remaining))
+                self.signalTimeRemainingEdit.emit(time_start)
                 time.sleep(1)
 
             self.m_PcanHandle = PCAN_USBBUS1
