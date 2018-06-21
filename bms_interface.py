@@ -46,7 +46,6 @@ class Bms_Dyno(QtCore.QObject):
         self.gui = ui_helper.Ui_Dialog_Derived()
         self.gui.setupUi(self.Dialog)
 
-        self.gui.pushButton.setEnabled(False);
         # Setup the worker object and the worker_thread.
         self.worker = worker()
         self.worker_thread = QtCore.QThread()
