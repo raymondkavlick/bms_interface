@@ -33,7 +33,6 @@ class Bms_Dyno(QtCore.QObject):
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-    BMS_KEY = 21
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -112,7 +111,7 @@ class worker(QtCore.QObject):
 
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
-            GPIO.setup(self.BMS_KEY, GPIO.OUT)
+            GPIO.setup(21, GPIO.OUT)
             #GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
@@ -196,7 +195,7 @@ class worker(QtCore.QObject):
                              + "%02d" % ((time_remaining % 60),)
         self.signalTimeRemainingEdit.emit(string_time_remain)
         if time_remaining == 0:
-            GPIO.output(self.BMS_KEY, GPIO.LOW)
+            GPIO.output(21, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
 
 if __name__ == "__main__":
