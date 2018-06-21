@@ -162,6 +162,7 @@ class worker(QtCore.QObject):
                             self.signalPackCurrentEdit.emit("CAN TIMEOUT");
                             self.signalBVoltageEdit.emit("CAN TIMEOUT");
                             self.signalPVoltageEdit.emit("CAN TIMEOUT");
+                            self.signalSoCEdit.emit("CAN TIMEOUT");
                             self.signalStatus.emit("BMS Missing.")
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
@@ -211,8 +212,8 @@ class worker(QtCore.QObject):
             self.signalStatus.emit("Entered Sleep Mode.")
         else:
             time_now = self.get_seconds()
-            #bms_dyno.time_remaining = (60 * 60 * 8) - (time_now - start)
-            bms_dyno.time_remaining = (10) - (time_now - start)
+            bms_dyno.time_remaining = (60 * 60 * 8) - (time_now - start)
+            #bms_dyno.time_remaining = (10) - (time_now - start)
             string_time_remain = "%02d:" % (((bms_dyno.time_remaining / 3600) % 24),) \
                                  + "%02d:" % (((bms_dyno.time_remaining / 60) % 60),) \
                                  + "%02d" % ((bms_dyno.time_remaining % 60),)
