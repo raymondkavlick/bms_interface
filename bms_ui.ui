@@ -255,9 +255,9 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>200</x>
+     <x>180</x>
      <y>30</y>
-     <width>431</width>
+     <width>501</width>
      <height>71</height>
     </rect>
    </property>
@@ -270,7 +270,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Costco Burgers &gt; *</string>
+    <string>Lithium Battery Pack</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">

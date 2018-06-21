@@ -161,7 +161,6 @@ class worker(QtCore.QObject):
             Bms_Key_State = False
             GPIO.output(BMS_KEY, Bms_Key_State)
             #time.sleep(3)
-            import datetime
             startTime_s = int(round(time.time() * 1000))
 
 

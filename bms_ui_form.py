@@ -153,7 +153,7 @@ class Ui_Dialog(object):
         self.frame.setFrameShadow(QtGui.QFrame.Raised)
         self.frame.setObjectName(_fromUtf8("frame"))
         self.label = QtGui.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(200, 30, 431, 71))
+        self.label.setGeometry(QtCore.QRect(180, 30, 501, 71))
         font = QtGui.QFont()
         font.setPointSize(36)
         font.setBold(True)
@@ -210,6 +210,6 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "B+ Voltage", None))
         self.label_9.setText(_translate("Dialog", "Pack Current", None))
         self.label_10.setText(_translate("Dialog", "State of Charge", None))
-        self.label.setText(_translate("Dialog", "Costco Burgers > *", None))
+        self.label.setText(_translate("Dialog", "Lithium Battery Pack", None))
         self.label_3.setText(_translate("Dialog", "Time Remaining :", None))
 
