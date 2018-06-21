@@ -96,6 +96,7 @@ class worker(QtCore.QObject):
     signal2BVoltageEdit = QtCore.pyqtSignal(str)
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
+    signalTimeRemainingEdit = QtCore.pyqtSignal(str)
 
 
     def __init__(self, parent=None):
