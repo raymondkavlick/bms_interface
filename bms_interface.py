@@ -38,6 +38,7 @@ class Bms_Dyno(QtCore.QObject):
         super(self.__class__, self).__init__(parent)
 
         self.time_remaining = 1
+        self.BMS_KEY = 21
         # Create a gui object.
         self.Dialog = QtGui.QDialog()
         self.gui = ui_helper.Ui_Dialog_Derived()
@@ -113,7 +114,7 @@ class worker(QtCore.QObject):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(21, GPIO.OUT)
-            GPIO.output(BMS_KEY, GPIO.HIGH)
+            GPIO.output(bms_dyno.BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
 
@@ -189,7 +190,7 @@ class worker(QtCore.QObject):
 
     def draw_time_remaining(self, start):
         if bms_dyno.time_remaining == 0:
-            GPIO.output(21, GPIO.LOW)
+            GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
         else:
             time_now = int(round(time.time()))
