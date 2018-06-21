@@ -31,6 +31,7 @@ class Bms_Dyno(QtCore.QObject):
     signal2BVoltageEdit = QtCore.pyqtSignal(str)
     signal2PackCurrentEdit = QtCore.pyqtSignal(str)
     signal2SoCEdit = QtCore.pyqtSignal(str)
+    signalTimeRemainingEdit = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -78,6 +79,10 @@ class Bms_Dyno(QtCore.QObject):
         self.worker.signal2PackCurrentEdit.connect(self.gui.updateStatus2PackCurrentEdit)
         self.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
         self.worker.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
+
+        self.signalTimeRemainingEdit.connect(self.gui.updateStatus2SoCEdit)
+        self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatus2SoCEdit)
+
 
 class worker(QtCore.QObject):
     signalStatus = QtCore.pyqtSignal(str)
@@ -153,6 +158,7 @@ class worker(QtCore.QObject):
             Bms_Key_State = True
             GPIO.output(BMS_KEY, Bms_Key_State)
             time.sleep(3)
+            time_remaining = default_timer()
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -184,6 +190,8 @@ class worker(QtCore.QObject):
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
                 while(1):
+
+
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()

@@ -54,3 +54,7 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
     def updateStatus2SoCEdit(self, status):
         self.textEdit_15.setText(status)
 
+    @QtCore.pyqtSlot(str)
+    def updateStatusTimeRemainingEdit(self, status):
+        self.textEdit_16.setText(status)
+
