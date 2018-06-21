@@ -167,8 +167,8 @@ class worker(QtCore.QObject):
             while (1):
                 time_now =  int(round(time.time() * 1000000))
                 time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
-                self.signalTimeRemainingEdit.emit(str(time_remaining))
-                #time.sleep(1)
+                self.signalTimeRemainingEdit.emit(str(time_now))
+                time.sleep(1)
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
