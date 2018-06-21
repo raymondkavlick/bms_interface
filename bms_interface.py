@@ -195,6 +195,7 @@ class worker(QtCore.QObject):
 
                     time_remaining = default_timer()
                     self.signalTimeRemainingEdit.emit(str(time_remaining))
+                    time.sleep(1)
 
                 while(1):
 
