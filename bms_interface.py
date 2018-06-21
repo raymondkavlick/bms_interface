@@ -115,7 +115,7 @@ class worker(QtCore.QObject):
             #GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
-            current_time_remain = 0;
+            current_time_remain = 10;
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
