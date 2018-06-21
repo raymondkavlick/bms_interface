@@ -80,8 +80,8 @@ class Bms_Dyno(QtCore.QObject):
         self.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
         self.worker.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
 
-        self.signalTimeRemainingEdit.connect(self.gui.updateStatus2SoCEdit)
-        self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatus2SoCEdit)
+        self.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
+        self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
 
 
 class worker(QtCore.QObject):
