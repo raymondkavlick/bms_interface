@@ -156,7 +156,7 @@ class worker(QtCore.QObject):
             BMS_KEY = 21
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(BMS_KEY, GPIO.OUT)
-            Bms_Key_State = True
+            Bms_Key_State = False
             GPIO.output(BMS_KEY, Bms_Key_State)
             time.sleep(3)
             time_remaining = default_timer()
@@ -192,7 +192,8 @@ class worker(QtCore.QObject):
                 startTime = default_timer()
                 while(1):
 
-
+                    time_remaining = default_timer()
+                    self.signalPackVoltageEdit.emit(str(time_remaining))
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
