@@ -113,7 +113,7 @@ class worker(QtCore.QObject):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(BMS_KEY, GPIO.OUT)
-            GPIO.output(BMS_KEY, GPIO.HIGH)
+            #GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
 
