@@ -189,7 +189,8 @@ class worker(QtCore.QObject):
 
     def draw_time_remaining(self, start):
         time_now = int(round(time.time()))
-        time_remaining = (60 * 60 * 8) - (time_now - start)
+        time_remaining = (10) - (time_now - start)
+        #time_remaining = (60 * 60 * 8) - (time_now - start)
         string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
                              + "%02d:" % (((time_remaining / 60) % 60),) \
                              + "%02d" % ((time_remaining % 60),)
