@@ -190,6 +190,16 @@ class worker(QtCore.QObject):
         CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
         self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
 
+    def draw_time_remaining(self, start):
+        time_now = int(round(time.time()))
+        time_remaining = (60 * 60 * 8) - (time_now - start)
+        string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
+                             + "%02d:" % (((time_remaining / 60) % 60),) \
+                             + "%02d" % ((time_remaining % 60),)
+        self.signalTimeRemainingEdit.emit(string_time_remain)
+        if time_remaining <= 0:
+            Bms_Key_State = False
+
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
     bms_dyno = Bms_Dyno(app)
@@ -200,13 +210,3 @@ def sign_extending(x, b):
     if x&(1<<(b-1)): # is the highest bit (sign) set? (x>>(b-1)) would be faster
         return x-(1<<b) # 2s complement
     return x
-
-def draw_time_remaining(self,start):
-    time_now = int(round(time.time()))
-    time_remaining = (60 * 60 * 8) - (time_now - start)
-    string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
-                         + "%02d:" % (((time_remaining / 60) % 60),) \
-                         + "%02d" % ((time_remaining % 60),)
-    self.signalTimeRemainingEdit.emit(string_time_remain)
-    if time_remaining <= 0:
-        Bms_Key_State = False
