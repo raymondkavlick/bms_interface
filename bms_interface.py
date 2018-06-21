@@ -160,17 +160,8 @@ class worker(QtCore.QObject):
             GPIO.setup(BMS_KEY, GPIO.OUT)
             Bms_Key_State = False
             GPIO.output(BMS_KEY, Bms_Key_State)
-            #time.sleep(3)
-            startTime_s = int(round(time.time()))
-
-            while (1):
-                time_now =  int(round(time.time()))
-                time_remaining = (60 * 60 * 2) - (time_now - startTime_s)
-                string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),)\
-                                     +"%02d:" % (((time_remaining / 60) % 60),) \
-                                     + "%02d" % ((time_remaining % 60),)
-                self.signalTimeRemainingEdit.emit(string_time_remain)
-                time.sleep(1)
+            time.sleep(3)
+            startTime = int(round(time.time()))
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
@@ -178,17 +169,9 @@ class worker(QtCore.QObject):
             self.ioport = 0
             self.interrupt = 0
 
-            #self.m_PcanHandle2 = PCAN_USBBUS2
-            #self.baudrate2 = PCAN_BAUD_250K
-            #self.hwtype2 = PCAN_USBBUS2
-            #self.ioport2 = 0
-            #self.interrupt2 = 0
-
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
-            #result2 = self.m_objPCANBasic.Initialize(self.m_PcanHandle2,self.baudrate2,self.hwtype2,self.ioport2,self.interrupt2)
 
-            #if result != PCAN_ERROR_OK or result2 != PCAN_ERROR_OK:
             if result != PCAN_ERROR_OK:
                 print "Error - PCAN not initializing."
                 if result != PCAN_ERROR_CAUTION:
@@ -204,28 +187,16 @@ class worker(QtCore.QObject):
 
 
                 while(1):
-                    time_now = default_timer() / 1000
-                    time_remaining = (60 * 60 * 8) - (time_now - startTime)
-                    self.signalTimeRemainingEdit.emit(str(time_remaining))
-                    time.sleep(1)
 
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
+                        draw_time_remaining(self,startTime)
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
                         msg = readResult[1]  # readResult[1] TPCANMsg()
                         idhex = format(msg.ID, 'X')
-                        #print'ID = ', idhex,
-                        #print(format(msg.DATA[0], '02X')),
-                        #print(format(msg.DATA[1], '02X')),
-                        #print(format(msg.DATA[2], '02X')),
-                        #print(format(msg.DATA[3], '02X')),
-                        #print(format(msg.DATA[4], '02X')),
-                        #print(format(msg.DATA[5], '02X')),
-                        #print(format(msg.DATA[6], '02X')),
-                        #print(format(msg.DATA[7], '02X'))
                         if msg.ID == 0x1AD:
                             self.signalStatus.emit("BMS Connected.")
                             PackVoltage = msg.DATA[0] + (msg.DATA[1] * 256)#endian
@@ -242,33 +213,6 @@ class worker(QtCore.QObject):
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
 
-                    readResult2 = self.m_objPCANBasic.Read(self.m_PcanHandle2)
-                    if readResult2[0] == PCAN_ERROR_OK:
-                        msg2 = readResult2[1]  # readResult[1] TPCANMsg()
-                        idhex2 = format(msg2.ID, 'X')
-                        print'ID = ', idhex2,
-                        print(format(msg2.DATA[0], '02X')),
-                        print(format(msg2.DATA[1], '02X')),
-                        print(format(msg2.DATA[2], '02X')),
-                        print(format(msg2.DATA[3], '02X')),
-                        print(format(msg2.DATA[4], '02X')),
-                        print(format(msg2.DATA[5], '02X')),
-                        print(format(msg2.DATA[6], '02X')),
-                        print(format(msg2.DATA[7], '02X'))
-                        if msg2.ID == 0x1AD:
-                            #self.signalStatus.emit("BMS Connected.")
-                            PackVoltage2 = msg2.DATA[0] + (msg2.DATA[1] * 256)  # endian
-                            PackCurrent2 = msg2.DATA[2] + (msg2.DATA[3] * 256)  # endian
-                            SoC2 = msg2.DATA[5]
-                            self.signal2PackVoltageEdit.emit(str(float(PackVoltage2) / 100) + " Volts")
-                            self.signal2PackCurrentEdit.emit(str(float(PackCurrent2) / 100) + " Amps")
-                            self.signal2SoCEdit.emit(str(SoC2) + "%")
-                        elif msg2.ID == 0x2AD:
-                            BVoltage2 = msg2.DATA[4] + (msg2.DATA[5] * 256)  # endian
-                            self.signal2BVoltageEdit.emit(str(float(BVoltage2) / 100) + " Volts")
-                        elif msg2.ID == 0x3AD:
-                            PVoltage2 = msg2.DATA[6] + (msg2.DATA[7] * 256)  # endian
-                            self.signal2PVoltageEdit.emit(str(float(PVoltage2) / 100) + " Volts")
 
     def sendBMSPdo(self):
         CANMsg = TPCANMsg()
@@ -327,3 +271,11 @@ def sign_extending(x, b):
     if x&(1<<(b-1)): # is the highest bit (sign) set? (x>>(b-1)) would be faster
         return x-(1<<b) # 2s complement
     return x
+
+def draw_time_remaining(self,start):
+    time_now = int(round(time.time()))
+    time_remaining = (60 * 60 * 8) - (time_now - start)
+    string_time_remain = "%02d:" % (((time_remaining / 3600) % 24),) \
+                         + "%02d:" % (((time_remaining / 60) % 60),) \
+                         + "%02d" % ((time_remaining % 60),)
+    self.signalTimeRemainingEdit.emit(string_time_remain)
