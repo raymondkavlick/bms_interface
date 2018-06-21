@@ -161,6 +161,11 @@ class worker(QtCore.QObject):
             time.sleep(3)
             time_remaining = default_timer()
 
+            while (1):
+                time_remaining = default_timer()
+                self.signalTimeRemainingEdit.emit(str(time_remaining))
+                time.sleep(1)
+
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
             self.hwtype = PCAN_USBBUS1
@@ -191,11 +196,6 @@ class worker(QtCore.QObject):
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer()
 
-                while(1):
-
-                    time_remaining = default_timer()
-                    self.signalTimeRemainingEdit.emit(str(time_remaining))
-                    time.sleep(1)
 
                 while(1):
 
