@@ -139,7 +139,6 @@ class worker(QtCore.QObject):
                 # Prepares the PCAN-Basic's PCAN-Trace file
                 print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
-                startTime = default_timer() / 1000
 
 
                 while(1):
