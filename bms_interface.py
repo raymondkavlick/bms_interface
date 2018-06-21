@@ -162,11 +162,11 @@ class worker(QtCore.QObject):
             GPIO.output(BMS_KEY, Bms_Key_State)
             #time.sleep(3)
             import datetime
-            startTime_s = datetime.datetime.seconds #default_timer() / 1000
+            startTime_s = int(round(time.time() * 1000))
 
 
             while (1):
-                time_now = datetime.datetime.seconds #default_timer() / 1000
+                time_now =  int(round(time.time() * 1000))
                 time_remaining = (60 * 60 * 8) - (time_now - startTime_s)
                 self.signalTimeRemainingEdit.emit(str(time_remaining))
                 time.sleep(1)
@@ -177,11 +177,11 @@ class worker(QtCore.QObject):
             self.ioport = 0
             self.interrupt = 0
 
-            self.m_PcanHandle2 = PCAN_USBBUS2
-            self.baudrate2 = PCAN_BAUD_250K
-            self.hwtype2 = PCAN_USBBUS2
-            self.ioport2 = 0
-            self.interrupt2 = 0
+            #self.m_PcanHandle2 = PCAN_USBBUS2
+            #self.baudrate2 = PCAN_BAUD_250K
+            #self.hwtype2 = PCAN_USBBUS2
+            #self.ioport2 = 0
+            #self.interrupt2 = 0
 
             # Connects a selected PCAN-Basic channel
             result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
