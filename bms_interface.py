@@ -113,7 +113,7 @@ class worker(QtCore.QObject):
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
             GPIO.setup(21, GPIO.OUT)
-            #GPIO.output(BMS_KEY, GPIO.HIGH)
+            GPIO.output(BMS_KEY, GPIO.HIGH)
             time.sleep(3)
             start_time_remain = int(round(time.time()))
 
@@ -192,8 +192,8 @@ class worker(QtCore.QObject):
             GPIO.output(21, GPIO.LOW)
             self.signalStatus.emit("Entered Sleep Mode.")
         else:
-            #time_remaining = (60 * 60 * 8) - (time_now - start)
             time_now = int(round(time.time()))
+            #bms_dyno.time_remaining = (60 * 60 * 8) - (time_now - start)
             bms_dyno.time_remaining = (10) - (time_now - start)
             string_time_remain = "%02d:" % (((bms_dyno.time_remaining / 3600) % 24),) \
                                  + "%02d:" % (((bms_dyno.time_remaining / 60) % 60),) \
