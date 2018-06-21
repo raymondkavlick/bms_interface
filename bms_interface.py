@@ -16,6 +16,7 @@ from PCANBasic import *        ## PCAN-Basic library import
 import sys
 import ui_helper
 from timeit import default_timer
+import RPi.GPIO as GPIO
 
 class Bms_Dyno(QtCore.QObject):
 
@@ -144,14 +145,14 @@ class worker(QtCore.QObject):
                     print "error2"
     '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
-            print "startWorker Thread Rx1!"
+            print "startWorker Thread Rx!"
 
-            import RPi.GPIO as GPIO
-            LED = 21
+            BMS_KEY = 21
             GPIO.setmode(GPIO.BCM)
-            GPIO.setup(LED, GPIO.OUT)
-            GPIO.output(LED, GPIO.HIGH)
-            GPIO.output(LED, GPIO.LOW)
+            GPIO.setup(BMS_KEY, GPIO.OUT)
+            Bms_Key_State = True
+            GPIO.output(BMS_KEY, Bms_Key_State)
+            time.sleep(3)
 
             self.m_PcanHandle = PCAN_USBBUS1
             self.baudrate = PCAN_BAUD_250K
