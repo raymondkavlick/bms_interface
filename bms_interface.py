@@ -37,8 +37,10 @@ class Bms_Dyno(QtCore.QObject):
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
 
+        #class vars
         self.time_remaining = 1
         self.BMS_KEY = 21
+
         # Create a gui object.
         self.Dialog = QtGui.QDialog()
         self.gui = ui_helper.Ui_Dialog_Derived()
@@ -110,6 +112,8 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
+            self.gui.pushButton.setEnabled(False);
+            self.signalStatus.emit("Connecting Peak...")
 
             GPIO.setwarnings(False)
             GPIO.setmode(GPIO.BCM)
