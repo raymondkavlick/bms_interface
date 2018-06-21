@@ -147,7 +147,7 @@ class worker(QtCore.QObject):
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
-                        self.draw_time_remaining(self,startTime)
+                        self.draw_time_remaining(startTime)
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
                     if readResult[0] == PCAN_ERROR_OK:
