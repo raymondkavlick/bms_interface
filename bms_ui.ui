@@ -298,9 +298,9 @@
    <property name="geometry">
     <rect>
      <x>170</x>
-     <y>814</y>
-     <width>141</width>
-     <height>61</height>
+     <y>830</y>
+     <width>111</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -316,6 +316,9 @@
    </property>
    <property name="acceptDrops">
     <bool>false</bool>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="autoFillBackground">
     <bool>false</bool>
