@@ -105,52 +105,7 @@ class worker(QtCore.QObject):
 
         self.m_objPCANBasic = PCANBasic()
         self.m_PcanHandle = 0
-    ''' for sending
-    def startWork(self, result=PCAN_ERROR_CAUTION):
-            print "startWorker Thread!"
-            self.m_PcanHandle = PCAN_USBBUS1
-            self.baudrate = PCAN_BAUD_500K
-            self.hwtype = PCAN_USBBUS1
-            self.ioport = 0
-            self.interrupt = 0
 
-            # Connects a selected PCAN-Basic channel
-            result = self.m_objPCANBasic.Initialize(self.m_PcanHandle,self.baudrate,self.hwtype,self.ioport,self.interrupt)
-
-            if result != PCAN_ERROR_OK:
-                print "Error - PCAN not initializing."
-                if result != PCAN_ERROR_CAUTION:
-                    self.signalStatus.emit('PeakCAN Dongle Not Found.')
-                else:
-                    self.IncludeTextMessage('******************************************************')
-                    self.IncludeTextMessage('The bitrate being used is different than the given one')
-                    self.IncludeTextMessage('******************************************************')
-                    result = PCAN_ERROR_OK
-                    self.signalStatus.emit("PeakCAN Connected!.")
-            else:
-                # Prepares the PCAN-Basic's PCAN-Trace file
-                print "PCAN - Initialized."
-                self.signalStatus.emit('PeakCAN Dongle Found.')
-
-            CANMsg = TPCANMsg()
-            for i in range(CANMsg.LEN):
-                CANMsg.DATA[i] = 3
-            CANMsg.ID = 0x300
-            CANMsg.LEN = 8
-            CANMsg.MSGTYPE = PCAN_MESSAGE_STANDARD
-            self.signalStatus.emit('Sending CAN Messages...')
-            for x in range(0,100):
-
-                time.sleep(1)
-                stsResult = self.m_objPCANBasic.Write(self.m_PcanHandle, CANMsg)
-                if stsResult == PCAN_ERROR_OK:
-                    print "Sending message..."
-                    self.signalPackVoltageEdit.emit(str(x))
-                else:
-                    # An error occurred.  We show the error.
-                    #
-                    print "error2"
-    '''
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
 
@@ -181,7 +136,7 @@ class worker(QtCore.QObject):
                   #  self.signalStatus.emit("PeakCAN Connected!.")
             else:
                 # Prepares the PCAN-Basic's PCAN-Trace file
-                print "PCAN 1 & 2 - Initialized."
+                print "PCAN - Initialized."
                 self.signalStatus.emit("Connected. Waiting for BMS...")
                 startTime = default_timer() / 1000
 
@@ -240,32 +195,6 @@ if __name__ == "__main__":
     bms_dyno = Bms_Dyno(app)
     sys.exit(app.exec_())
 
-    '''
-    @QtCore.pyqtSlot(str)
-    def updateStatus(self, status):
-        self.m_Status.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPackVoltageEdit(self, status):
-        self.textEdit.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPVoltageEdit(self, status):
-        self.textEdit_2.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusBVoltageEdit(self, status):
-        self.textEdit_3.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusPackCurrentEdit(self, status):
-        self.textEdit_4.setText(status)
-
-    @QtCore.pyqtSlot(str)
-    def updateStatusSoCEdit(self, status):
-        self.textEdit_5.setText(status)
-    
-    '''
 
 def sign_extending(x, b):
     if x&(1<<(b-1)): # is the highest bit (sign) set? (x>>(b-1)) would be faster
@@ -279,3 +208,4 @@ def draw_time_remaining(self,start):
                          + "%02d:" % (((time_remaining / 60) % 60),) \
                          + "%02d" % ((time_remaining % 60),)
     self.signalTimeRemainingEdit.emit(string_time_remain)
+    if time_remianing <= 0:
