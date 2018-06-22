@@ -33,7 +33,7 @@ class Bms_Dyno(QtCore.QObject):
     signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
     signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-    signalPushButton = QtCore.pyqtSignal(str)
+    #signalPushButton = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -55,13 +55,12 @@ class Bms_Dyno(QtCore.QObject):
 
         # Make any cross object connections.
         self._connectSignals()
-
-        #self.Dialog.show()
         self.Dialog.showFullScreen()
-        #self.worker.startWork()#auto connect at bootup
 
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
+        #self.gui.pushButton.clicked.connect(self.worker.startPowerDown)
+        #self.gui.
         self.signalStatus.connect(self.gui.updateStatus)
         self.worker.signalStatus.connect(self.gui.updateStatus)
         self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
@@ -88,8 +87,8 @@ class Bms_Dyno(QtCore.QObject):
 
         self.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
         self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
-        self.signalPushButton.connect(self.gui.updatePushButton)
-        self.worker.signalPushButton.connect(self.gui.updatePushButton)
+        #self.signalPushButton.connect(self.gui.updatePushButton)
+        #self.worker.signalPushButton.connect(self.gui.updatePushButton)
 
 
 class worker(QtCore.QObject):
@@ -105,7 +104,7 @@ class worker(QtCore.QObject):
     signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
     signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-    signalPushButton = QtCore.pyqtSignal(str)
+    #signalPushButton = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -115,7 +114,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            self.signalPushButton.emit("")
+            #self.signalPushButton.emit("")
             self.signalStatus.emit("Connecting to Peak...")
 
             GPIO.setwarnings(False)
