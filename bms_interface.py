@@ -192,15 +192,15 @@ class worker(QtCore.QObject):
                             MaxCellVolts = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             MinCellVolts = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
-                            self.signalMaxCellVoltsEdit.emit(str(float(MaxCellVolts) / 100) + " Volts")
-                            self.signalMinCellVoltsEdit.emit(str(float(MinCellVolts) / 100) + " Volts")
+                            self.signalMaxCellVoltsEdit.emit(str(float(MaxCellVolts) / 1000) + " Volts")
+                            self.signalMinCellVoltsEdit.emit(str(float(MinCellVolts) / 1000) + " Volts")
                             self.signalBVoltageEdit.emit(str(float(BVoltage) / 100) + " Volts")
                         elif msg.ID == 0x3AD:
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
                         elif msg.ID == 0x4AD:
                             chargerPWM = msg.DATA[0]
-                            self.signalCellMinTempEdit.emit(str(chargerPWM) + "%")
+                            self.signalChargerPWMEdit.emit(str(chargerPWM) + "%")
 
     def sendBMSPdo(self):
         CANMsg = TPCANMsg()
