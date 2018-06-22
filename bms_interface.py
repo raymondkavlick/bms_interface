@@ -98,6 +98,7 @@ class worker(QtCore.QObject):
     signalPVoltageEdit = QtCore.pyqtSignal(str)
     signalBVoltageEdit = QtCore.pyqtSignal(str)
     signalPackCurrentEdit = QtCore.pyqtSignal(str)
+    signalSoCEdit = QtCore.pyqtSignal(str)
     signalCellMaxTempEdit = QtCore.pyqtSignal(str)
     signalCellMinTempEdit = QtCore.pyqtSignal(str)
     signalMaxCellVoltsEdit = QtCore.pyqtSignal(str)
