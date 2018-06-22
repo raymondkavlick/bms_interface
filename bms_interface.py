@@ -109,7 +109,7 @@ class worker(QtCore.QObject):
     def __init__(self, parent):
         super(self.__class__, self).__init__(parent)
 
-        
+
         self.m_objPCANBasic = PCANBasic()
         self.m_PcanHandle = 0
 
