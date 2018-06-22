@@ -58,7 +58,7 @@ class Bms_Dyno(QtCore.QObject):
         self.Dialog.showFullScreen()
 
     def _connectSignals(self):
-        self.gui.pushButton.clicked.connect(self.worker.startWork)
+        self.gui.pushButton.clicked.connect(self.worker.startWork(self.gui.pushButton))
         #self.gui.pushButton.clicked.connect(self.worker.startPowerDown)
         #self.gui.
         self.signalStatus.connect(self.gui.updateStatus)
