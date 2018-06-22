@@ -33,7 +33,7 @@ class Bms_Dyno(QtCore.QObject):
     signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
     signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-    #signalPushButton = QtCore.pyqtSignal(str)
+    signalCatchAll = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -59,8 +59,6 @@ class Bms_Dyno(QtCore.QObject):
 
     def _connectSignals(self):
         self.gui.pushButton.clicked.connect(self.worker.startWork)
-        #self.gui.pushButton.clicked.connect(self.worker.startPowerDown)
-        #self.gui.
         self.signalStatus.connect(self.gui.updateStatus)
         self.worker.signalStatus.connect(self.gui.updateStatus)
         self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
@@ -87,8 +85,8 @@ class Bms_Dyno(QtCore.QObject):
 
         self.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
         self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
-        #self.signalPushButton.connect(self.gui.updatePushButton)
-        #self.worker.signalPushButton.connect(self.gui.updatePushButton)
+        self.signalCatchAll.connect(self.gui.catchAll)
+        self.worker.signalCatchAll.connect(self.gui.catchAll)
 
 
 class worker(QtCore.QObject):
@@ -104,7 +102,7 @@ class worker(QtCore.QObject):
     signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
     signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
-    #signalPushButton = QtCore.pyqtSignal(str)
+    signalCatchAll = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
@@ -114,8 +112,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            #self.gui.pushButton.setEnabled(False)
-            #self.signalPushButton.emit("")
+            self.signalCatchAll.emit(0)
             self.signalStatus.emit("Connecting to Peak...")
 
             GPIO.setwarnings(False)
@@ -229,7 +226,6 @@ class worker(QtCore.QObject):
         else:
             time_now = self.get_seconds()
             bms_dyno.time_remaining = (60 * 60 * 8) - (time_now - start)
-            #bms_dyno.time_remaining = (10) - (time_now - start)
             string_time_remain = "%02d:" % (((bms_dyno.time_remaining / 3600) % 24),) \
                                  + "%02d:" % (((bms_dyno.time_remaining / 60) % 60),) \
                                  + "%02d" % ((bms_dyno.time_remaining % 60),)
