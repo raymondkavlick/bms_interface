@@ -60,6 +60,7 @@ class Bms_Dyno(QtCore.QObject):
 
     def _connectSignals(self):
         self.gui.connectButton.clicked.connect(self.worker.startWork)
+        self.gui.powerDownButton.clicked.connect(self.shutdown)
         self.signalStatus.connect(self.gui.updateStatus)
         self.worker.signalStatus.connect(self.gui.updateStatus)
         self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
@@ -88,6 +89,13 @@ class Bms_Dyno(QtCore.QObject):
         self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
         self.signalCatchAll.connect(self.gui.catchAll)
         self.worker.signalCatchAll.connect(self.gui.catchAll)
+
+    def shutdown(self):
+        GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
+        self.worker_thread.terminate()
+        self.signalStatus.emit("Force shut down!")
+        self.gui.connectButton.setEnabled(True)
+        self.gui.powerDownButton.setEnabled(False)
 
 
 class worker(QtCore.QObject):
