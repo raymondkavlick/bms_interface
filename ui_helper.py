@@ -35,24 +35,24 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
         self.textEdit_5.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updateStatus2PackVoltageEdit(self, status):
-        self.textEdit_11.setText(status)
+    def updateStatusCellMinTempEdit(self, status):
+        self.textEdit_10.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updateStatus2PVoltageEdit(self, status):
+    def updateStatusCellMaxTempEdit(self, status):
         self.textEdit_12.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updateStatus2BVoltageEdit(self, status):
-        self.textEdit_13.setText(status)
+    def updateStatusMaxCellVoltsEdit(self, status):
+        self.textEdit_8.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updateStatus2PackCurrentEdit(self, status):
-        self.textEdit_14.setText(status)
+    def updateStatusMinCellVoltsEdit(self, status):
+        self.textEdit_9.setText(status)
 
     @QtCore.pyqtSlot(str)
-    def updateStatus2SoCEdit(self, status):
-        self.textEdit_15.setText(status)
+    def updateStatusChargerPWMEdit(self, status):
+        self.textEdit_11.setText(status)
 
     @QtCore.pyqtSlot(str)
     def updateStatusTimeRemainingEdit(self, status):

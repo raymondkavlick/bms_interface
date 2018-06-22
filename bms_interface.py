@@ -27,11 +27,11 @@ class Bms_Dyno(QtCore.QObject):
     signalBVoltageEdit = QtCore.pyqtSignal(str)
     signalPackCurrentEdit = QtCore.pyqtSignal(str)
     signalSoCEdit = QtCore.pyqtSignal(str)
-    signal2PackVoltageEdit = QtCore.pyqtSignal(str)
-    signal2PVoltageEdit = QtCore.pyqtSignal(str)
-    signal2BVoltageEdit = QtCore.pyqtSignal(str)
-    signal2PackCurrentEdit = QtCore.pyqtSignal(str)
-    signal2SoCEdit = QtCore.pyqtSignal(str)
+    signalCellMaxTempEdit = QtCore.pyqtSignal(str)
+    signalCellMinTempEdit = QtCore.pyqtSignal(str)
+    signalMaxCellVoltsEdit = QtCore.pyqtSignal(str)
+    signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
+    signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
     signalPushButton = QtCore.pyqtSignal(str)
 
@@ -75,16 +75,16 @@ class Bms_Dyno(QtCore.QObject):
         self.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
         self.worker.signalSoCEdit.connect(self.gui.updateStatusSoCEdit)
 
-        self.signal2PackVoltageEdit.connect(self.gui.updateStatus2PackVoltageEdit)
-        self.worker.signal2PackVoltageEdit.connect(self.gui.updateStatus2PackVoltageEdit)
-        self.signal2PVoltageEdit.connect(self.gui.updateStatus2PVoltageEdit)
-        self.worker.signal2PVoltageEdit.connect(self.gui.updateStatus2PVoltageEdit)
-        self.signal2BVoltageEdit.connect(self.gui.updateStatus2BVoltageEdit)
-        self.worker.signal2BVoltageEdit.connect(self.gui.updateStatus2BVoltageEdit)
-        self.signal2PackCurrentEdit.connect(self.gui.updateStatus2PackCurrentEdit)
-        self.worker.signal2PackCurrentEdit.connect(self.gui.updateStatus2PackCurrentEdit)
-        self.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
-        self.worker.signal2SoCEdit.connect(self.gui.updateStatus2SoCEdit)
+        self.signalCellMaxTempEdit.connect(self.gui.updateStatusCellMaxTempEdit)
+        self.worker.signalCellMaxTempEdit.connect(self.gui.updateStatusCellMaxTempEdit)
+        self.signalCellMinTempEdit.connect(self.gui.updateStatusCellMinTempEdit)
+        self.worker.signalCellMinTempEdit.connect(self.gui.updateStatusCellMinTempEdit)
+        self.signalMaxCellVoltsEdit.connect(self.gui.updateStatusMaxCellVoltsEdit)
+        self.worker.signalMaxCellVoltsEdit.connect(self.gui.updateStatusMaxCellVoltsEdit)
+        self.signalMinCellVoltsEdit.connect(self.gui.updateStatusMinCellVoltsEdit)
+        self.worker.signalMinCellVoltsEdit.connect(self.gui.updateStatusMinCellVoltsEdit)
+        self.signalChargerPWMEdit.connect(self.gui.updateStatusChargerPWMEdit)
+        self.worker.signalChargerPWMEdit.connect(self.gui.updateStatusChargerPWMEdit)
 
         self.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
         self.worker.signalTimeRemainingEdit.connect(self.gui.updateStatusTimeRemainingEdit)
@@ -98,12 +98,11 @@ class worker(QtCore.QObject):
     signalPVoltageEdit = QtCore.pyqtSignal(str)
     signalBVoltageEdit = QtCore.pyqtSignal(str)
     signalPackCurrentEdit = QtCore.pyqtSignal(str)
-    signalSoCEdit = QtCore.pyqtSignal(str)
-    signal2PackVoltageEdit = QtCore.pyqtSignal(str)
-    signal2PVoltageEdit = QtCore.pyqtSignal(str)
-    signal2BVoltageEdit = QtCore.pyqtSignal(str)
-    signal2PackCurrentEdit = QtCore.pyqtSignal(str)
-    signal2SoCEdit = QtCore.pyqtSignal(str)
+    signalCellMaxTempEdit = QtCore.pyqtSignal(str)
+    signalCellMinTempEdit = QtCore.pyqtSignal(str)
+    signalMaxCellVoltsEdit = QtCore.pyqtSignal(str)
+    signalMinCellVoltsEdit = QtCore.pyqtSignal(str)
+    signalChargerPWMEdit = QtCore.pyqtSignal(str)
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
     signalPushButton = QtCore.pyqtSignal(str)
 
@@ -163,6 +162,11 @@ class worker(QtCore.QObject):
                             self.signalBVoltageEdit.emit("CAN TIMEOUT");
                             self.signalPVoltageEdit.emit("CAN TIMEOUT");
                             self.signalSoCEdit.emit("CAN TIMEOUT");
+                            self.signalCellMaxTempEdit.emit("CAN TIMEOUT");
+                            self.signalCellMinTempEdit.emit("CAN TIMEOUT");
+                            self.signalMaxCellVoltsEdit.emit("CAN TIMEOUT");
+                            self.signalMinCellVoltsEdit.emit("CAN TIMEOUT");
+                            self.signalChargerPWMEdit.emit("CAN TIMEOUT");
                             self.signalStatus.emit("BMS Missing.")
 
                     readResult = self.m_objPCANBasic.Read(self.m_PcanHandle)
@@ -176,15 +180,26 @@ class worker(QtCore.QObject):
                             PackCurrent = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             PackCurrent = c_int16(PackCurrent)
                             SoC = msg.DATA[5]
+                            MaxTemp = msg.DATA[6]
+                            MinTemp = msg.DATA[7]
                             self.signalPackVoltageEdit.emit(str(float(PackVoltage) / 100) + " Volts")
                             self.signalPackCurrentEdit.emit(str(float(PackCurrent.value) / -10) + " Amps")
                             self.signalSoCEdit.emit(str(SoC) + "%")
+                            self.signalCellMaxTempEdit.emit(str(MaxTemp) + " degC")
+                            self.signalCellMinTempEdit.emit(str(MinTemp) + " degC")
                         elif msg.ID == 0x2AD:
+                            MaxCellVolts = msg.DATA[0] + (msg.DATA[1] * 256)#endian
+                            MinCellVolts = msg.DATA[2] + (msg.DATA[3] * 256)#endian
                             BVoltage = msg.DATA[4] + (msg.DATA[5] * 256)#endian
+                            self.signalMaxCellVoltsEdit.emit(str(float(MaxCellVolts) / 100) + " Volts")
+                            self.signalMinCellVoltsEdit.emit(str(float(MinCellVolts) / 100) + " Volts")
                             self.signalBVoltageEdit.emit(str(float(BVoltage) / 100) + " Volts")
                         elif msg.ID == 0x3AD:
                             PVoltage = msg.DATA[6] + (msg.DATA[7] * 256)#endian
                             self.signalPVoltageEdit.emit(str(float(PVoltage) / 100) + " Volts")
+                        elif msg.ID == 0x4AD:
+                            chargerPWM = msg.DATA[0]
+                            self.signalCellMinTempEdit.emit(str(chargerPWM) + "%")
 
     def sendBMSPdo(self):
         CANMsg = TPCANMsg()
