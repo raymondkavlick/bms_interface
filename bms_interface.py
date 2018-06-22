@@ -114,7 +114,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            self.gui.pushButton.setEnabled(False)
+            #self.gui.pushButton.setEnabled(False)
             #self.signalPushButton.emit("")
             self.signalStatus.emit("Connecting to Peak...")
 
