@@ -64,6 +64,6 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
             self.connectButton.setEnabled(False)
             self.powerDownButton.setEnabled(True)
         elif action == "regen":
-            self.textEdit_4.setTextBackgroundColor(0,255,0)
+            self.textEdit_4.setTextBackgroundColor(QtGui.QColor(0,255,0))
         elif action == "discharge":
-            self.textEdit_4.setTextBackgroundColor(255,255,0)
+            self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,0,0))
