@@ -578,17 +578,20 @@
   <widget class="QLabel" name="label_5">
    <property name="geometry">
     <rect>
-     <x>1470</x>
+     <x>1670</x>
      <y>10</y>
-     <width>351</width>
+     <width>171</width>
      <height>151</height>
     </rect>
+   </property>
+   <property name="toolTipDuration">
+    <number>0</number>
    </property>
    <property name="text">
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap>logo.jpg</pixmap>
+    <pixmap>logo3.jpg</pixmap>
    </property>
   </widget>
   <zorder>layoutWidget</zorder>
