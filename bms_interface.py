@@ -193,9 +193,9 @@ class worker(QtCore.QObject):
                             self.signalSoCEdit.emit(str(SoC) + "%")
                             self.signalCellMaxTempEdit.emit(str(MaxTemp) + " degC")
                             self.signalCellMinTempEdit.emit(str(MinTemp) + " degC")
-                            if PackCurrent > 0 :
+                            if (PackCurrent / 10) > 1 :
                                 self.signalCatchAll.emit("regen")
-                            else:
+                            elif (PackCurrent / 10) < -1 :
                                 self.signalCatchAll.emit("discharge")
                         elif msg.ID == 0x2AD:
                             MaxCellVolts = msg.DATA[0] + (msg.DATA[1] * 256)#endian
