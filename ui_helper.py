@@ -60,6 +60,7 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
 
     @QtCore.pyqtSlot(str)
     def catchAll(self,action):
-        if action == "0":
-            self.pushButton.setEnabled(False)
+        if action == "buttonDisable":
+            self.connectButton.setEnabled(False)
+            self.powerDownButton.setEnabled(True)
 

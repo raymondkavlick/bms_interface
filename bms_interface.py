@@ -58,7 +58,7 @@ class Bms_Dyno(QtCore.QObject):
         self.Dialog.showFullScreen()
 
     def _connectSignals(self):
-        self.gui.pushButton.clicked.connect(self.worker.startWork)
+        self.gui.connectButton.clicked.connect(self.worker.startWork)
         self.signalStatus.connect(self.gui.updateStatus)
         self.worker.signalStatus.connect(self.gui.updateStatus)
         self.signalPackVoltageEdit.connect(self.gui.updateStatusPackVoltageEdit)
@@ -112,7 +112,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            self.signalCatchAll.emit("0")
+            self.signalCatchAll.emit("buttonDisable")
             self.signalStatus.emit("Connecting to Peak...")
 
             GPIO.setwarnings(False)
