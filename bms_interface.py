@@ -47,6 +47,7 @@ class Bms_Dyno(QtCore.QObject):
         self.gui = ui_helper.Ui_Dialog_Derived()
         self.gui.setupUi(self.Dialog)
         self.gui.powerDownButton.setEnabled(False)
+        self.gui.label_5.setPixmap(QtGui.QPixmap(QtCore.QString.fromUtf8("/home/pi/Documents/bms_interface/logo3.jpg")))
 
         # Setup the worker object and the worker_thread.
         self.worker = worker()
