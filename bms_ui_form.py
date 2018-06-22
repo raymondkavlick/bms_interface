@@ -355,5 +355,5 @@ class Ui_Dialog(object):
         self.label_4.setText(_translate("Dialog", "Status", None))
         self.groupBox.setTitle(_translate("Dialog", "Limits", None))
         self.label_16.setText(_translate("Dialog", "Max Voltage 56.4 V", None))
-        self.label_17.setText(_translate("Dialog", "Min Voltage 40.0V", None))
+        self.label_17.setText(_translate("Dialog", "Min Voltage 40.0 V", None))
 

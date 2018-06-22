@@ -635,7 +635,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Min Voltage 40.0V</string>
+     <string>Min Voltage 40.0 V</string>
     </property>
    </widget>
   </widget>
