@@ -539,7 +539,7 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>1380</x>
+     <x>1350</x>
      <y>10</y>
      <width>111</width>
      <height>31</height>
@@ -575,6 +575,22 @@
     <string>Status</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>1470</x>
+     <y>10</y>
+     <width>351</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>logo.jpg</pixmap>
+   </property>
+  </widget>
   <zorder>layoutWidget</zorder>
   <zorder>layoutWidget</zorder>
   <zorder>buttonBox</zorder>
@@ -596,6 +612,7 @@
   <zorder>label_2</zorder>
   <zorder>powerDownButton</zorder>
   <zorder>label_4</zorder>
+  <zorder>label_5</zorder>
  </widget>
  <resources/>
  <connections>
