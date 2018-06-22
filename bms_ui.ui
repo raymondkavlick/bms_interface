@@ -14,7 +14,7 @@
    <string>Curtis Dyno BMS</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background: rgb(186, 189, 182)</string>
+   <string notr="true"/>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -239,22 +239,6 @@
     </item>
    </layout>
   </widget>
-  <widget class="QFrame" name="frame">
-   <property name="geometry">
-    <rect>
-     <x>790</x>
-     <y>120</y>
-     <width>771</width>
-     <height>581</height>
-    </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::StyledPanel</enum>
-   </property>
-   <property name="frameShadow">
-    <enum>QFrame::Raised</enum>
-   </property>
-  </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
@@ -347,7 +331,6 @@
   <zorder>buttonBox</zorder>
   <zorder>pushButton</zorder>
   <zorder>m_Status</zorder>
-  <zorder>frame</zorder>
   <zorder>label</zorder>
   <zorder>label_3</zorder>
   <zorder>textEdit_6</zorder>
