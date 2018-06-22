@@ -26,6 +26,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(1615, 885)
+        Dialog.setStyleSheet(_fromUtf8("background: rgb(186, 189, 182)"))
         self.buttonBox = QtGui.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(440, 830, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
@@ -150,11 +151,10 @@ class Ui_Dialog(object):
         self.label_10.setObjectName(_fromUtf8("label_10"))
         self.verticalLayout.addWidget(self.label_10)
         self.frame = QtGui.QFrame(Dialog)
-        self.frame.setGeometry(QtCore.QRect(20, 120, 771, 581))
+        self.frame.setGeometry(QtCore.QRect(790, 120, 771, 581))
         self.frame.setFrameShape(QtGui.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtGui.QFrame.Raised)
         self.frame.setObjectName(_fromUtf8("frame"))
-        self.textEdit.raise_()
         self.label = QtGui.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(130, 30, 581, 71))
         font = QtGui.QFont()
@@ -185,7 +185,7 @@ class Ui_Dialog(object):
         self.textEdit_6.setAcceptDrops(False)
         self.textEdit_6.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.textEdit_6.setAutoFillBackground(False)
-        self.textEdit_6.setStyleSheet(_fromUtf8("background: rgb(250, 243, 255)"))
+        self.textEdit_6.setStyleSheet(_fromUtf8(""))
         self.textEdit_6.setFrameShape(QtGui.QFrame.NoFrame)
         self.textEdit_6.setFrameShadow(QtGui.QFrame.Sunken)
         self.textEdit_6.setReadOnly(True)
@@ -207,7 +207,7 @@ class Ui_Dialog(object):
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "BMS Interface", None))
+        Dialog.setWindowTitle(_translate("Dialog", "Curtis Dyno BMS", None))
         self.pushButton.setText(_translate("Dialog", "Connect", None))
         self.label_6.setText(_translate("Dialog", "Pack Voltage", None))
         self.label_7.setText(_translate("Dialog", "P+ Voltage", None))
