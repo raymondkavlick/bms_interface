@@ -48,7 +48,7 @@ class Bms_Dyno(QtCore.QObject):
         self.gui.setupUi(self.Dialog)
 
         # Setup the worker object and the worker_thread.
-        self.worker = worker(self)
+        self.worker = worker()
         self.worker_thread = QtCore.QThread()
         self.worker.moveToThread(self.worker_thread)
         self.worker_thread.start()
@@ -106,9 +106,8 @@ class worker(QtCore.QObject):
     signalTimeRemainingEdit = QtCore.pyqtSignal(str)
     #signalPushButton = QtCore.pyqtSignal(str)
 
-    def __init__(self, parent):
+    def __init__(self, parent=None):
         super(self.__class__, self).__init__(parent)
-
 
         self.m_objPCANBasic = PCANBasic()
         self.m_PcanHandle = 0
