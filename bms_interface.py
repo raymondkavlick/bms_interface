@@ -112,7 +112,7 @@ class worker(QtCore.QObject):
 
     def startWork(self, result=PCAN_ERROR_CAUTION):
             print "startWorker Thread Rx!"
-            self.signalCatchAll.emit(0)
+            self.signalCatchAll.emit("0")
             self.signalStatus.emit("Connecting to Peak...")
 
             GPIO.setwarnings(False)
