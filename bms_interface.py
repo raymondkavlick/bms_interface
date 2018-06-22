@@ -46,6 +46,7 @@ class Bms_Dyno(QtCore.QObject):
         self.Dialog = QtGui.QDialog()
         self.gui = ui_helper.Ui_Dialog_Derived()
         self.gui.setupUi(self.Dialog)
+        self.powerDownButton.setEnabled(False)
 
         # Setup the worker object and the worker_thread.
         self.worker = worker()
@@ -147,7 +148,6 @@ class worker(QtCore.QObject):
 
                 while(1):
 
-
                     if default_timer() > startTime + .5:#.1 = 100ms
                         self.sendBMSPdo()
                         startTime = default_timer()
@@ -233,7 +233,6 @@ class worker(QtCore.QObject):
 
     def get_seconds(self):
         return int(round(time.time()))
-
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

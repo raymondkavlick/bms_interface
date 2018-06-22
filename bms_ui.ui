@@ -57,6 +57,15 @@
    <property name="acceptDrops">
     <bool>false</bool>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::WinPanel</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="lineWidth">
+    <number>100</number>
+   </property>
    <property name="readOnly">
     <bool>true</bool>
    </property>
