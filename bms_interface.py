@@ -201,7 +201,7 @@ class worker(QtCore.QObject):
                             else:
                                 self.signalCatchAll.emit("idlecurrent")
 
-                            if  SoC.value < 40:
+                            if  SoC < 40:
                                 self.signalCatchAll.emit("needCharge")
                             else:
                                 self.signalCatchAll.emit("idlecharge")
