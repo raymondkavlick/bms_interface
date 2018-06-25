@@ -27,11 +27,6 @@ class Ui_Dialog(object):
         Dialog.setObjectName(_fromUtf8("Dialog"))
         Dialog.resize(1825, 986)
         Dialog.setStyleSheet(_fromUtf8(""))
-        self.buttonBox = QtGui.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(1420, 930, 341, 32))
-        self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
-        self.buttonBox.setStandardButtons(QtGui.QDialogButtonBox.Cancel|QtGui.QDialogButtonBox.Ok)
-        self.buttonBox.setObjectName(_fromUtf8("buttonBox"))
         self.connectButton = QtGui.QPushButton(Dialog)
         self.connectButton.setGeometry(QtCore.QRect(1050, 880, 151, 61))
         self.connectButton.setObjectName(_fromUtf8("connectButton"))
@@ -308,7 +303,6 @@ class Ui_Dialog(object):
         self.label_17.setObjectName(_fromUtf8("label_17"))
         self.layoutWidget.raise_()
         self.layoutWidget.raise_()
-        self.buttonBox.raise_()
         self.connectButton.raise_()
         self.m_Status.raise_()
         self.label.raise_()
@@ -331,8 +325,6 @@ class Ui_Dialog(object):
         self.groupBox.raise_()
 
         self.retranslateUi(Dialog)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("accepted()")), Dialog.accept)
-        QtCore.QObject.connect(self.buttonBox, QtCore.SIGNAL(_fromUtf8("rejected()")), Dialog.reject)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
