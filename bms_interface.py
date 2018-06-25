@@ -97,6 +97,7 @@ class Bms_Dyno(QtCore.QObject):
         self.signalStatus.emit("Force shut down!")
         #self.gui.connectButton.setEnabled(True)
         self.gui.powerDownButton.setEnabled(False)
+        self.Dialog.close()
 
 
 class worker(QtCore.QObject):
