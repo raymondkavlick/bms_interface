@@ -64,9 +64,12 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
             self.connectButton.setEnabled(False)
             self.powerDownButton.setEnabled(True)
         elif action == "regen":
-            self.label_9.setAutoFillBackground()
             self.textEdit_4.setTextBackgroundColor(QtGui.QColor(0,255,0))
         elif action == "discharge":
             self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,0,0))
         elif action == "idlecurrent":
+            self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,255,255))
+        elif action == "needCharge":
+            self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,0,0))
+        elif action == "idlecharge":
             self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,255,255))

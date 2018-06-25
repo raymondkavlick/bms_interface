@@ -200,6 +200,12 @@ class worker(QtCore.QObject):
                                 self.signalCatchAll.emit("discharge")
                             else:
                                 self.signalCatchAll.emit("idlecurrent")
+
+                            if  SoC.value < 40:
+                                self.signalCatchAll.emit("needCharge")
+                            else:
+                                self.signalCatchAll.emit("idlecharge")
+
                         elif msg.ID == 0x2AD:
                             MaxCellVolts = msg.DATA[0] + (msg.DATA[1] * 256)#endian
                             MinCellVolts = msg.DATA[2] + (msg.DATA[3] * 256)#endian
