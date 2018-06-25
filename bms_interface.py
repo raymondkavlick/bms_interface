@@ -92,10 +92,10 @@ class Bms_Dyno(QtCore.QObject):
         self.worker.signalCatchAll.connect(self.gui.catchAll)
 
     def shutdown(self):
-        GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
-        self.worker_thread.terminate()
         self.gui.powerDownButton.setEnabled(False)
+        GPIO.output(bms_dyno.BMS_KEY, GPIO.LOW)
         self.signalStatus.emit("Force shut down!")
+        self.worker_thread.terminate()
         #self.gui.connectButton.setEnabled(True)
         time.sleep(1)
         self.Dialog.close()
