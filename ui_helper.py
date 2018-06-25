@@ -70,6 +70,6 @@ class Ui_Dialog_Derived(bms_ui_form.Ui_Dialog):
         elif action == "idlecurrent":
             self.textEdit_4.setTextBackgroundColor(QtGui.QColor(255,255,255))
         elif action == "needCharge":
-            self.textEdit_5.setTextBackgroundColor(QtGui.QColor(255,0,0))
+            self.textEdit_5.setTextColor(QtGui.QColor(255,0,0))
         elif action == "idlecharge":
-            self.textEdit_5.setTextBackgroundColor(QtGui.QColor(255,255,255))
+            self.textEdit_5.setTextColor(QtGui.QColor(255,255,255))
